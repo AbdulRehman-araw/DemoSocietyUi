@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCIz38y1x8FCefR5YZDa2mHXxStc4wUljM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>137132822658</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>societyhoodios.app</string>
+	<key>PROJECT_ID</key>
+	<string>societyhood-6d73e</string>
+	<key>STORAGE_BUCKET</key>
+	<string>societyhood-6d73e.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:137132822658:ios:c1f2543e1208efff36249b</string>
+</dict>
+</plist>

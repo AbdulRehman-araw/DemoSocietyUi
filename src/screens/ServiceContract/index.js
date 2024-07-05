@@ -1,0 +1,111 @@
+import {
+  BackHandler,
+  Dimensions,
+  SafeAreaView,
+  StatusBar,
+  View,
+  ActivityIndicator,
+  Text,
+  FlatList,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {colors} from '../../styles/colors';
+import Header from '../../components/Header/Header';
+import {Images} from '../../assets/Images';
+import {useIsFocused} from '@react-navigation/native';
+import {apiCall} from '../../Services/apiCall';
+import {fontsFamily} from '../../assets/Fonts';
+import ServiceCard from './serviceCard';
+
+const {width, height} = Dimensions.get('screen');
+
+const ServiceContract = ({navigation}) => {
+  const isFocused = useIsFocused();
+
+  const goBack = () => {
+    navigation.goBack();
+  };
+
+  const handleBack = () => {
+    goBack();
+    return true;
+  };
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBack);
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBack);
+    };
+  }, []);
+
+  const [serviceContracts, setServiceContracts] = useState([]);
+  const [loader, setLoader] = useState(false);
+
+  const getServiceContracts = async () => {
+    setLoader(true);
+    try {
+      const {data} = await apiCall.getServiceContracts();
+      setServiceContracts(data.reverse());
+    } catch (error) {
+      console.log('file: index.js:54 => getPurchases => error:', error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  useEffect(() => {
+    getServiceContracts();
+  }, [isFocused]);
+
+  return (
+    <SafeAreaView style={{flex: 1, backgroundColor: colors.white}}>
+      <StatusBar
+        translucent={false}
+        backgroundColor={colors.white}
+        barStyle="dark-content"
+      />
+
+      <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
+        <Header
+          onBack={goBack}
+          title={'Service Contracts'}
+          showRightBtn={true}
+          icon={Images.Addcircle}
+          handleRightBtn={() => navigation.navigate('createServiceContract')}
+        />
+
+        <View
+          style={{
+            paddingHorizontal: width * 0.01,
+            flex: 1,
+            marginTop: 10,
+            paddingBottom: height * 0.15,
+          }}>
+          {loader ? (
+            <ActivityIndicator size={'small'} color={colors.primary} />
+          ) : serviceContracts?.length > 0 ? (
+            <FlatList
+              data={serviceContracts}
+              renderItem={({item}) => <ServiceCard data={item} />}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <View
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+              <Text
+                style={{
+                  color: colors.black,
+                  fontSize: width * 0.035,
+                  fontFamily: fontsFamily.medium,
+                }}>
+                No service contact found
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
+
+export default ServiceContract;
