@@ -118,7 +118,7 @@ const Expenses = ({navigation}) => {
           onBack={goBack}
           title={'Expenses'}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => navigation.navigate('createExpense')}
         />
         <View

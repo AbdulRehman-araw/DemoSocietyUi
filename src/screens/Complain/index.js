@@ -6,6 +6,7 @@ import {
   View,
   ScrollView,
   Platform,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {colors} from '../../styles/colors';
@@ -138,72 +139,83 @@ const Complain = () => {
         modalVisible={open}
       />
 
-      <View style={{paddingHorizontal: width * 0.03, flex: 1}}>
-        <Header
-          onBack={goBack}
-          title={'Complain'}
-          showRightBtn={role == 'User' ? true : false}
-          handleRightBtn={() => navigation.navigate('addComplain')}
-          icon={Images.Addcircle}
-        />
+      <ImageBackground source={Images.darkBG} style={{flex: 1}}>
+        <View style={{paddingHorizontal: width * 0.03, flex: 1}}>
+          <Header
+            onBack={goBack}
+            title={'Complain'}
+            showRightBtn={role == 'User' ? true : false}
+            handleRightBtn={() => navigation.navigate('addComplain')}
+            icon={Images.Addcircle}
+          />
 
-        <FilledTextField
-          name={'Search'}
-          placeholder=" Search"
-          type={'default'}
-          justChange={e => getAllComplains(e)}
-          control={control}
-          variant="outlined"
-          showRightIcon={true}
-          rightIconImg={Images.search}
-          containerStyle={{borderRadius: 12}}
-        />
+          <FilledTextField
+            name={'Search'}
+            placeholder=" Search"
+            type={'default'}
+            justChange={e => getAllComplains(e)}
+            control={control}
+            variant="outlined"
+            showRightIcon={true}
+            rightIconImg={Images.search}
+            containerStyle={{
+              borderRadius: 12,
+              marginTop: width * 0.05,
+              backgroundColor: colors.white,
+              borderWidth: 1,
+            }}
+          />
 
-        {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <TimeDateBtn setOpen={() => setOpen(true)} title={'Date'} />
           <TimeDateBtn setOpen={() => setOpen(true)} title={'Date'} />
         </View> */}
 
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
-          }}>
-          {complains?.length === 0 ? (
-            <View
-              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-              <ActivityIndicator size={'large'} color={colors.primary} />
-            </View>
-          ) : (
-            complains
-              ?.slice(0, numToShow)
-              ?.map((item, index) => (
-                <ComplainCard
-                  key={index}
-                  data={item}
-                  getData={getAllComplains}
-                />
-              ))
-          )}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
+            }}>
+            {complains?.length === 0 ? (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <ActivityIndicator size={'large'} color={colors.primary} />
+              </View>
+            ) : (
+              complains
+                ?.slice(0, numToShow)
+                ?.map((item, index) => (
+                  <ComplainCard
+                    key={index}
+                    data={item}
+                    getData={getAllComplains}
+                  />
+                ))
+            )}
 
-          {complains?.length > numToShow && (
-            <PrimaryButton
-              onPress={loadMoreNotifications}
-              customStyle={{
-                marginBottom: width * 0.12,
-                paddingVertical: width * 0.025,
-                paddingHorizontal: width * 0.015,
-                borderRadius: 10,
-              }}
-              title={'See previous Complains'}
-            />
-          )}
-        </ScrollView>
-      </View>
+            {complains?.length > numToShow && (
+              <PrimaryButton
+                onPress={loadMoreNotifications}
+                customStyle={{
+                  marginBottom: width * 0.12,
+                  paddingVertical: width * 0.025,
+                  paddingHorizontal: width * 0.015,
+                  borderRadius: 10,
+                }}
+                title={'See previous Complains'}
+              />
+            )}
+          </ScrollView>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

@@ -127,6 +127,7 @@ const Amenities = ({ navigation, route }) => {
               borderRadius: 12,
               marginTop: width * 0.05,
               backgroundColor: colors.white,
+              borderWidth: 1,
             }}
             isLeftSearch={true}
           />

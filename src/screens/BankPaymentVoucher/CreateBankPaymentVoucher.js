@@ -14,6 +14,7 @@ import CustomModal from '../../components/Modal/CustomModal';
 import DropDown from '../../components/TextField/DropDown';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import TimeDateBtn from '../../components/Button/TimeDateBtn';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton'
 
 const { width } = Dimensions.get("window")
 
@@ -161,7 +162,7 @@ const CreateBankPaymentVoucher = ({ navigation }) => {
       <View style={{ paddingHorizontal: width * 0.032, flex: 1 }}>
         <Header
           onBack={goBack}
-          title={"Create"}
+          title={"Add New"}
         />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
@@ -175,7 +176,7 @@ const CreateBankPaymentVoucher = ({ navigation }) => {
               name={'vendor'}
               title="Select Vendor"
               type={'default'}
-              variant={'outlined'}
+              // variant={'outlined'}
               control={control}
               rules={{
                 required: "Please select vendor",
@@ -189,7 +190,7 @@ const CreateBankPaymentVoucher = ({ navigation }) => {
               name={'purchase'}
               title="Select Purchase"
               type={'default'}
-              variant={'outlined'}
+              // variant={'outlined'}
               control={control}
               rules={{
                 required: "Please select purchase",
@@ -227,7 +228,7 @@ const CreateBankPaymentVoucher = ({ navigation }) => {
               name={'bankAccount'}
               title="Bank Account"
               type={'default'}
-              variant={'outlined'}
+              // variant={'outlined'}
               control={control}
               rules={{
                 required: "Please select bank account",
@@ -250,7 +251,7 @@ const CreateBankPaymentVoucher = ({ navigation }) => {
             />
 
             <View style={{ marginVertical: width * 0.07 }}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{ padding: width * 0.032 }}
                 title={'Submit'}
                 loader={loading}

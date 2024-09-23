@@ -27,14 +27,15 @@ export const styles = StyleSheet.create({
     marginVertical: width * 0.016
   },
   username: {
-    color: colors.primary,
-    fontSize: width * 0.04,
+    color: colors.black,
+    fontSize: width * 0.035,
   },
   viewname: {
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: width * 0.016,
     paddingHorizontal: width * 0.03,
+    marginTop:20
     
   },
   top:{
@@ -48,17 +49,17 @@ export const styles = StyleSheet.create({
   tableCell: {
     justifyContent: 'center',
     alignItems:'center',
-    flex:0.3,
+    // flex:0.3,
    
   },
   tableCellName:{
     justifyContent: 'center',
     alignItems:'center',
-    flex:0.7,
+    flex:-1,
   },
   border: {
-    borderColor: colors.gray,
-    borderLeftWidth: 1,
+    // borderColor: colors.gray,
+    // borderLeftWidth: 1,
     
   },
   card2: {

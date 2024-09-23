@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import {StatusBar} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
@@ -81,86 +82,94 @@ const FormList = ({navigation, route}) => {
         backgroundColor={colors.white}
         barStyle="dark-content"
       />
-      <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
-        <Header
-          onBack={goBack}
-          title={'E-Forms'}
-          showRightBtn={permission?.canAdd}
-          icon={Images.Addcircle}
-          handleRightBtn={() => navigation.navigate('createForm')}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderWidth: 1,
-            borderColor: colors.primary,
-            borderRadius: width * 0.05,
-            marginVertical: width * 0.02,
 
-            borderColor: colors.gray,
-          }}>
-          <TextInput
-            style={styles.searchInput}
-            placeholderTextColor={colors.gray}
-            placeholder="Search Forms"
-            value={searchText}
-            onChangeText={text => setSearchText(text)}
+      <ImageBackground source={Images.lightBG} style={{flex: 1}}>
+        <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
+          <Header
+            onBack={goBack}
+            title={'All Forms'}
+            showRightBtn={permission?.canAdd}
+            icon={Images.newAdd}
+            handleRightBtn={() => navigation.navigate('createForm')}
           />
-          <Image
-            source={Images.search}
+          {/* <View
             style={{
-              width: width * 0.05,
-              height: width * 0.05,
-              marginRight: width * 0.05,
-            }}
-          />
-        </View>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
-          }}>
-          <View
-            style={{paddingHorizontal: width * 0.01, flex: 1, marginTop: 10}}>
-            <CustomText
-              fontWeight={fontsFamily.bold}
+              flexDirection: 'row',
+              alignItems: 'center',
+              borderWidth: 1,
+              borderColor: colors.primary,
+              borderRadius: width * 0.05,
+              marginVertical: width * 0.02,
+
+              borderColor: colors.gray,
+            }}>
+            <TextInput
+              style={styles.searchInput}
+              placeholderTextColor={colors.gray}
+              placeholder="Search Forms"
+              value={searchText}
+              onChangeText={text => setSearchText(text)}
+            />
+            <Image
+              source={Images.search}
               style={{
-                fontSize: width * 0.04,
-                marginVertical: width * 0.04,
-                color: colors.primary,
-              }}>
-              Created Forms
-            </CustomText>
-            {loader ? (
-              <ActivityIndicator size={'small'} color={colors.primary} />
-            ) : (
-              eForms
-                ?.filter(item =>
-                  item.formName
-                    .toLowerCase()
-                    .includes(searchText.toLowerCase()),
-                )
-                ?.map((item, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    activeOpacity={1}
-                    onPress={() =>
-                      navigation.navigate('EFormForAdmin', {data: item})
-                    }
-                    style={styles.viewCard}>
-                    <CustomText
-                      fontWeight={fontsFamily.medium}
-                      style={styles.detailText}>
-                      {item?.formName}
-                    </CustomText>
-                  </TouchableOpacity>
-                ))
-            )}
-          </View>
-        </ScrollView>
-      </View>
+                width: width * 0.05,
+                height: width * 0.05,
+                marginRight: width * 0.05,
+              }}
+            />
+          </View> */}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
+            }}>
+            <View
+              style={{paddingHorizontal: width * 0.01, flex: 1, marginTop: 10}}>
+              {/* <CustomText
+                fontWeight={fontsFamily.bold}
+                style={{
+                  fontSize: width * 0.04,
+                  marginVertical: width * 0.04,
+                  color: colors.primary,
+                }}>
+                Created Forms
+              </CustomText> */}
+              {loader ? (
+                <ActivityIndicator size={'small'} color={colors.primary} />
+              ) : (
+                eForms
+                  ?.filter(item =>
+                    item.formName
+                      .toLowerCase()
+                      .includes(searchText.toLowerCase()),
+                  )
+                  ?.map((item, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      activeOpacity={1}
+                      onPress={() =>
+                        navigation.navigate('EFormForAdmin', {data: item})
+                      }
+                      style={styles.viewCard}>
+                      <CustomText
+                        fontWeight={fontsFamily.bold}
+                        style={styles.detailText}>
+                        {item?.formName}
+                      </CustomText>
+                      <Image
+                        source={Images.card_arrow}
+                        style={{width: 60, height: 60}}
+                        resizeMode="center"
+                      />
+                    </TouchableOpacity>
+                  ))
+              )}
+            </View>
+          </ScrollView>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -176,17 +185,16 @@ const styles = StyleSheet.create({
   detailText: {
     color: colors.black,
     fontSize: width * 0.035,
-    textAlign: 'center',
   },
   viewCard: {
     marginVertical: height * 0.01,
-    padding: width * 0.04,
-    borderRadius: 12,
+    paddingLeft: width * 0.04,
     overflow: 'hidden',
-    backgroundColor: colors.white,
-    elevation: 2,
-    borderWidth: 1,
-    borderColor: colors.gray,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.primary,
   },
 });
 

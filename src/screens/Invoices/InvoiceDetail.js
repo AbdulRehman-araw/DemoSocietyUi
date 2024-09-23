@@ -140,7 +140,7 @@ const InvoiceDetail = ({navigation, route}) => {
       />
 
       <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
-        <Header onBack={goBack} title={'Invoice Detail'} />
+        <Header onBack={goBack} title={updateData?.title} />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -150,6 +150,11 @@ const InvoiceDetail = ({navigation, route}) => {
           }}>
           <View style={{paddingHorizontal: width * 0.02}}>
             <View style={{}}>
+              <CustomText fontWeight={fontsFamily.bold} style={{...styles.name, fontSize:18, marginVertical:20, color:colors.black}}>
+                Invoice Details
+              </CustomText>
+
+
               <CustomText fontWeight={fontsFamily.semiBold} style={styles.name}>
                 Invoice Date
               </CustomText>
@@ -342,10 +347,10 @@ const InvoiceDetail = ({navigation, route}) => {
                   <CustomText
                     fontWeight={fontsFamily.semiBold}
                     style={{
-                      color:
-                        updateData.isVerify === false
-                          ? colors.pending
-                          : colors.primary,
+                      color:colors.black, 
+                        // updateData.isVerify === false
+                        //   ? colors.pending
+                        //   : colors.primary,
                       fontSize: width * 0.04,
                     }}>
                     {updateData.isVerify === false ? 'Pending' : 'Approved'}

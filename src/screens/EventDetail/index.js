@@ -34,6 +34,37 @@ import CancelModal from '../../components/Modal/CancelModal';
 
 const {width, height} = Dimensions.get('window');
 
+const EventDetailView = ({img, label, text}) => {
+  return (
+    <View
+      style={{flexDirection: 'row', alignItems: 'center', marginVertical: 8}}>
+      <Image
+        source={img}
+        style={{
+          width: 26,
+          height: 26,
+          resizeMode: 'contain',
+          marginRight: 12,
+          tintColor: colors.black,
+        }}
+      />
+      <View>
+        <CustomText
+          fontWeight={fontsFamily.regular}
+          style={{fontSize: 12, color: colors.dark}}>
+          {label}
+        </CustomText>
+        <View style={{marginVertical: 4}} />
+        <CustomText
+          fontWeight={fontsFamily.bold}
+          style={{fontSize: 16, color: colors.dark}}>
+          {text}
+        </CustomText>
+      </View>
+    </View>
+  );
+};
+
 const EventDetail = ({navigation, route}) => {
   const {
     eventDate,
@@ -211,11 +242,10 @@ const EventDetail = ({navigation, route}) => {
             color: colors.white,
             marginTop: 15,
           }}
-          iconStyle={{tintColor: colors.white}}
         />
       </ImageBackground>
 
-      <View style={styles.card}>
+      {/* <View style={styles.card}>
         <View style={{}}>
           {eventName ? (
             <CustomText
@@ -231,7 +261,7 @@ const EventDetail = ({navigation, route}) => {
             </CustomText>
           )}
         </View>
-      </View>
+      </View> */}
       <AlertModal
         visible={errorModal}
         close={setErrorModal}
@@ -239,7 +269,71 @@ const EventDetail = ({navigation, route}) => {
         type={'s'}
       />
 
-      <View
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: 80}}>
+        <View style={{margin: 10, marginVertical:20}}>
+          <EventDetailView
+            label={'Location'}
+            text={venueName}
+            img={Images.location}
+          />
+          {bookingID !== undefined && (
+            <>
+              <EventDetailView
+                label={'Description'}
+                text={data.status({request})}
+                img={Images.userIcon}
+              />
+              <EventDetailView
+                label={'Description'}
+                text={eventDescription}
+                img={Images.location}
+              />
+              <EventDetailView
+                label={'Remarks'}
+                text={data.remarks}
+                img={Images.noOfVisitors}
+              />
+            </>
+          )}
+
+          <EventDetailView
+            label={'Date'}
+            text={moment(eventDate)?.format('DD MMMM YYYY')}
+            img={Images.calender_outlined}
+          />
+          <EventDetailView
+            label={'Starting Time'}
+            text={
+              bookingID == null
+                ? moment(eventDate).format('hh:mm a')
+                : startTime
+            }
+            img={Images.clock_outlined}
+          />
+          {bookingID !== undefined && (
+            <>
+              <EventDetailView
+                label={'End Time'}
+                text={endTime}
+                img={Images.newPhone}
+              />
+              <EventDetailView
+                label={'Organizer'}
+                text={organizer}
+                img={Images.newPhone}
+              />
+              <EventDetailView
+                label={'Number of guest'}
+                text={totalPersons}
+                img={Images.newPhone}
+              />
+            </>
+          )}
+        </View>
+
+        {/* <View
         style={{
           paddingHorizontal: width * 0.09,
           flex: 0.8,
@@ -438,18 +532,86 @@ const EventDetail = ({navigation, route}) => {
             {totalPersons}
           </CustomText>
         )}
-      </View>
+      </View> */}
 
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {ePollingPermission[0]?.canDelete && role !== 'User' && (
-          <>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          {ePollingPermission[0]?.canDelete && role !== 'User' && (
+            <>
+              <TouchableOpacity
+                onPress={() => AlertFunction2()}
+                style={[
+                  styles.viewbtn,
+                  {
+                    backgroundColor: colors.white,
+                    borderColor: colors.primary,
+                    borderWidth: 1,
+                  },
+                ]}>
+                <CustomText
+                  fontWeight={fontsFamily.semiBold}
+                  style={{
+                    color: colors.primary,
+                    fontSize: width * 0.03,
+                    paddingHorizontal: width * 0.02,
+                  }}>
+                  Delete
+                </CustomText>
+              </TouchableOpacity>
+
+              <WarningModal
+                visible={errorModal2}
+                close={setErrorModal2}
+                text={errorModalText}
+                type={alertWarning}
+                button={true}
+                warning={() => {
+                  if (removalIndex !== null) {
+                    [DeleteEvent(eventID), setErrorModal2(false)];
+                  }
+                }}
+                cancel={() => setErrorModal2(false)}
+              />
+            </>
+          )}
+
+          {ePollingPermission[0]?.canEdit && role !== 'User' && (
             <TouchableOpacity
-              onPress={() => AlertFunction2()}
+              activeOpacity={1}
+              onPress={() =>
+                navigation.navigate('EditCommunityEvent', {data: CommunityData})
+              }
+              style={[
+                styles.viewbtn,
+                {backgroundColor: colors.primary, marginHorizontal: 10},
+              ]}>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{
+                  color: colors.white,
+                  fontSize: width * 0.03,
+                  paddingHorizontal: width * 0.02,
+                }}>
+                Edit
+              </CustomText>
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {role === 'User' && bookingID !== undefined && request !== 'Cancel' && (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: width * 0.2,
+            }}>
+            <TouchableOpacity
+              onPress={() => AlertFunction()}
               style={[
                 styles.viewbtn,
                 {
@@ -465,111 +627,44 @@ const EventDetail = ({navigation, route}) => {
                   fontSize: width * 0.03,
                   paddingHorizontal: width * 0.02,
                 }}>
-                Delete
+                Cancel Booking
               </CustomText>
             </TouchableOpacity>
 
-            <WarningModal
-              visible={errorModal2}
-              close={setErrorModal2}
+            <CancelModal
+              visible={errorModal1}
+              close={setErrorModal}
               text={errorModalText}
               type={alertWarning}
               button={true}
               warning={() => {
                 if (removalIndex !== null) {
-                  [DeleteEvent(eventID), setErrorModal2(false)];
+                  [CancelBookingRequest(bookingID), setErrorModal1(false)];
                 }
               }}
-              cancel={() => setErrorModal2(false)}
+              cancel={() => setErrorModal1(false)}
             />
-          </>
+
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => navigation.navigate('EditEvent', {data})}
+              style={[
+                styles.viewbtn,
+                {backgroundColor: colors.primary, marginHorizontal: 10},
+              ]}>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{
+                  color: colors.white,
+                  fontSize: width * 0.03,
+                  paddingHorizontal: width * 0.02,
+                }}>
+                Edit
+              </CustomText>
+            </TouchableOpacity>
+          </View>
         )}
-
-        {ePollingPermission[0]?.canEdit && role !== 'User' && (
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() =>
-              navigation.navigate('EditCommunityEvent', {data: CommunityData})
-            }
-            style={[
-              styles.viewbtn,
-              {backgroundColor: colors.primary, marginHorizontal: 10},
-            ]}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{
-                color: colors.white,
-                fontSize: width * 0.03,
-                paddingHorizontal: width * 0.02,
-              }}>
-              Edit
-            </CustomText>
-          </TouchableOpacity>
-        )}
-      </View>
-
-      {role === 'User' && bookingID !== undefined && request !== 'Cancel' && (
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: width * 0.2,
-          }}>
-          <TouchableOpacity
-            onPress={() => AlertFunction()}
-            style={[
-              styles.viewbtn,
-              {
-                backgroundColor: colors.white,
-                borderColor: colors.primary,
-                borderWidth: 1,
-              },
-            ]}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{
-                color: colors.primary,
-                fontSize: width * 0.03,
-                paddingHorizontal: width * 0.02,
-              }}>
-              Cancel Booking
-            </CustomText>
-          </TouchableOpacity>
-
-          <CancelModal
-            visible={errorModal1}
-            close={setErrorModal}
-            text={errorModalText}
-            type={alertWarning}
-            button={true}
-            warning={() => {
-              if (removalIndex !== null) {
-                [CancelBookingRequest(bookingID), setErrorModal1(false)];
-              }
-            }}
-            cancel={() => setErrorModal1(false)}
-          />
-
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => navigation.navigate('EditEvent', {data})}
-            style={[
-              styles.viewbtn,
-              {backgroundColor: colors.primary, marginHorizontal: 10},
-            ]}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{
-                color: colors.white,
-                fontSize: width * 0.03,
-                paddingHorizontal: width * 0.02,
-              }}>
-              Edit
-            </CustomText>
-          </TouchableOpacity>
-        </View>
-      )}
+      </ScrollView>
     </ScrollView>
   );
 };

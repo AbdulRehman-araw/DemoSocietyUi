@@ -14,6 +14,7 @@ import CustomModal from '../../components/Modal/CustomModal';
 import DropDown from '../../components/TextField/DropDown';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import TimeDateBtn from '../../components/Button/TimeDateBtn';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton'
 
 const { width } = Dimensions.get("window")
 
@@ -120,7 +121,7 @@ const CreateCashReceivingVoucher = ({ navigation }) => {
       <View style={{ paddingHorizontal: width * 0.032, flex: 1 }}>
         <Header
           onBack={goBack}
-          title={"Create"}
+          title={"Add New"}
         />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
@@ -134,7 +135,7 @@ const CreateCashReceivingVoucher = ({ navigation }) => {
               name={'apartment'}
               title="Select Apartment"
               type={'default'}
-              variant={'outlined'}
+              // variant={'outlined'}
               control={control}
               rules={{
                 required: "Please select apartment",
@@ -181,7 +182,7 @@ const CreateCashReceivingVoucher = ({ navigation }) => {
             />
 
             <View style={{ marginVertical: width * 0.07 }}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{ padding: width * 0.032 }}
                 title={'Submit'}
                 loader={loading}

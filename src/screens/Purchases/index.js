@@ -116,7 +116,7 @@ const Purchases = ({navigation}) => {
           onBack={goBack}
           title={'Purchases'}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => navigation.navigate('createPurchase')}
         />
 

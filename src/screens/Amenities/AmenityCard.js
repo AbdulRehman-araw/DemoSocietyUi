@@ -43,6 +43,7 @@ const VisitorDetailView = ({ img, label, text }) => {
 }
 
 const AmenityCard = ({ data, permission }) => {
+console.log("🚀 ~ AmenityCard ~ data:", data)
 
   const navigation = useNavigation()
 
@@ -91,87 +92,6 @@ const AmenityCard = ({ data, permission }) => {
           </View>
         </View>
       </TouchableOpacity>
-      {/* <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => navigation.navigate('amenityDetail', { data: { detail: data, permission: permission } })}
-        style={styles.viewCard}>
-
-        <View style={styles.greenCard}>
-          <Image
-            source={Images.visitors}
-            resizeMode="contain"
-            style={{ width: '65%' }}
-          />
-        </View>
-
-        <View style={{ flex: 1, justifyContent: "space-evenly", paddingHorizontal: 10 }}>
-
-          <View style={styles.viewText}>
-            <CustomText fontWeight={fontsFamily.medium} style={styles.detailText}>
-              {data?.title}
-            </CustomText>
-            <CustomText
-              fontWeight={fontsFamily.medium}
-              style={styles.subHeading}>
-              {data?.details}
-            </CustomText>
-          </View>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-            <View style={{ width: '44%' }}>
-              <CustomText
-                fontWeight={fontsFamily.medium}
-                style={styles.subHeading}>
-                Location
-              </CustomText>
-              <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-                {data?.location}
-              </CustomText>
-            </View>
-
-            <View style={{ width: '55%' }}>
-              <CustomText
-                fontWeight={fontsFamily.medium}
-                style={styles.subHeading}>
-                Timing
-              </CustomText>
-              <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-                {getFormattedTime(data.startTime)} - {getFormattedTime(data.endTime)}
-              </CustomText>
-            </View>
-
-          </View>
-
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-            <View style={{ width: '44%' }}>
-              <CustomText
-                fontWeight={fontsFamily.medium}
-                style={styles.subHeading}>
-                Manager
-              </CustomText>
-              <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-                {data?.managerName}
-              </CustomText>
-            </View>
-
-            <View style={{ width: '55%' }}>
-              <CustomText
-                fontWeight={fontsFamily.medium}
-                style={styles.subHeading}>
-                Contact No.
-              </CustomText>
-              <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-                {data?.contactNo}
-              </CustomText>
-            </View>
-
-
-          </View>
-
-        </View>
-      </TouchableOpacity> */}
     </>
   );
 };

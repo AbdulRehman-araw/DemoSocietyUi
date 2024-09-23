@@ -25,6 +25,8 @@ import { fontsFamily } from '../../assets/Fonts';
 import TimeDateBtn from '../../components/Button/TimeDateBtn';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import { getFormattedDate } from '../../utils/helperFunction';
+import { Images } from '../../assets/Images';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 const { width } = Dimensions.get('window');
 
 const BankStatement = ({ navigation }) => {
@@ -263,6 +265,7 @@ const BankStatement = ({ navigation }) => {
                       : getFormattedDate(fromDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('fromDate')]}
                 />
               </View>
@@ -273,12 +276,13 @@ const BankStatement = ({ navigation }) => {
                     toDate == new Date() ? 'To Date' : getFormattedDate(toDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('toDate')]}
                 />
               </View>
             </View>
             <View style={{ marginVertical: width * 0.01 }}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{ padding: width * 0.032 }}
                 title={'View Statements'}
                 onPress={handleSubmit(getBankStatements)}

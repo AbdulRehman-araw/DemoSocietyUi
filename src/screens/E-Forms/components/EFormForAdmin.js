@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React, {useState} from 'react';
 import {text} from '../../../res/strings';
@@ -24,6 +25,8 @@ import AlertModal from '../../../components/Modal/AlertModal';
 import {Images} from '../../../assets/Images';
 import WarningModal from '../../../components/Modal/WarningModal';
 import {useSelector} from 'react-redux';
+import Header from '../../../components/Header/Header';
+import LinearGradientPrimaryButton from '../../../components/Button/LinearGradientPrimaryButton';
 
 const {width} = Dimensions.get('window');
 
@@ -126,83 +129,87 @@ const EFormForAdmin = ({navigation, route}) => {
         cancel={() => setErrorModal1(false)}
       />
 
-      <StatusBar
+      {/* <StatusBar
         translucent
         backgroundColor={colors.white}
         barStyle="light-content"
-      />
+      /> */}
 
-      <View style={{paddingHorizontal: width * 0.025, flex: 1, marginTop: 30}}>
-        <HeaderClose
-          onBack={goBack}
-          leftarrow={{marginLeft: 10}}
-          title={data.formName}
-          showRightBtn={true}
-          eformstyle={{fontSize: width * 0.04}}
-        />
-
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
-            paddingHorizontal:
-              Platform.OS == 'ios' ? width * 0.08 : width * 0.03,
-          }}>
-          {data?.properties?.map((item, index) => (
-            <FilledTextField
-              editable={false}
-              name={`${item?.name}-${item?.id}`}
-              placeholder={item?.name}
-              type={'default'}
-              control={control}
-              rules={{
-                required: `Please enter ${item?.name}.`,
-              }}
-              onSubmitEditing={handleSubmit(submitForm)}
-            />
-          ))}
-
-          <PrimaryButton
-            customStyle={{padding: width * 0.03}}
-            title={text.submit}
-            loader={loader}
+      <ImageBackground source={Images.lightBG} style={{flex: 1}}>
+        <View style={{paddingHorizontal: width * 0.025, flex: 1}}>
+          <Header
+            onBack={goBack}
+            leftarrow={{marginLeft: 10}}
+            title={data.formName}
+            showRightBtn={true}
+            eformstyle={{fontSize: width * 0.04}}
           />
 
-          {(role == 'SuperAdmin' || role == 'Admin') && (
-            <View
-              style={{
-                marginVertical: width * 0.07,
-                flexDirection: 'row',
-                gap: 8,
-                justifyContent: 'center',
-              }}>
-              <TouchableOpacity
-                disabled={loading}
-                onPress={() => AlertFunction()}
-                activeOpacity={1}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
+              paddingHorizontal:
+                Platform.OS == 'ios' ? width * 0.08 : width * 0.03,
+            }}>
+            <View style={{flex: 1}}>
+              {data?.properties?.map((item, index) => (
+                <FilledTextField
+                  editable={false}
+                  name={`${item?.name}-${item?.id}`}
+                  placeholder={item?.name}
+                  type={'default'}
+                  control={control}
+                  variant={'outlined'}
+                  rules={{
+                    required: `Please enter ${item?.name}.`,
+                  }}
+                  onSubmitEditing={handleSubmit(submitForm)}
+                />
+              ))}
+            </View>
+
+            <LinearGradientPrimaryButton
+              customStyle={{padding: width * 0.03}}
+              title={text.submit}
+              loader={loader}
+            />
+
+            {(role == 'SuperAdmin' || role == 'Admin') && (
+              <View
                 style={{
-                  width: width * 0.13,
-                  height: width * 0.13,
-                  marginRight: width * 0.02,
-                  backgroundColor: colors.danger,
-                  borderRadius: 10,
-                  padding: width * 0.02,
-                  alignItems: 'center',
+                  marginVertical: width * 0.07,
+                  flexDirection: 'row',
+                  gap: 8,
                   justifyContent: 'center',
                 }}>
-                <Image
-                  resizeMode="contain"
+                <TouchableOpacity
+                  disabled={loading}
+                  onPress={() => AlertFunction()}
+                  activeOpacity={1}
                   style={{
-                    tintColor: colors.white,
-                    width: width * 0.06,
-                    height: width * 0.06,
-                  }}
-                  source={Images.icondelete}
-                />
-              </TouchableOpacity>
+                    width: width * 0.13,
+                    height: width * 0.13,
+                    marginRight: width * 0.02,
+                    backgroundColor: colors.danger,
+                    borderRadius: 10,
+                    padding: width * 0.02,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Image
+                    resizeMode="contain"
+                    style={{
+                      tintColor: colors.white,
+                      width: width * 0.06,
+                      height: width * 0.06,
+                    }}
+                    source={Images.icondelete}
+                  />
+                </TouchableOpacity>
 
-              {/* <TouchableOpacity onPress={() => navigation.navigate('updateAmenity', { data: updateData })} activeOpacity={1} style={{
+                {/* <TouchableOpacity onPress={() => navigation.navigate('updateAmenity', { data: updateData })} activeOpacity={1} style={{
                   width: width * 0.13,
                   height: width * 0.13,
                   marginRight: width * 0.02,
@@ -218,10 +225,11 @@ const EFormForAdmin = ({navigation, route}) => {
                     source={Images.editIcon}
                   />
                 </TouchableOpacity> */}
-            </View>
-          )}
-        </ScrollView>
-      </View>
+              </View>
+            )}
+          </ScrollView>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

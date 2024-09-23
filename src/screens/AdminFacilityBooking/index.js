@@ -33,6 +33,7 @@ import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import FacilityBookingCard from '../../components/DetailCard/FacilityBookingCard';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 
 const { width, height } = Dimensions.get('window');
 
@@ -151,8 +152,9 @@ const AdminFacilityBooking = ({ navigation, route }) => {
           rightIconStyle={{ flex: 0.4 }}
           containerStyle={{
             borderRadius: 12,
-            marginTop: width * 0.15,
+            marginTop: width * 0.05,
             backgroundColor: colors.white,
+            borderWidth: 1,
           }}
           isLeftSearch={true}
           isCalender={true}
@@ -299,7 +301,7 @@ const AdminFacilityBooking = ({ navigation, route }) => {
               ))
             )}
 
-            <PrimaryButton
+            <LinearGradientPrimaryButton
               onPress={loadMoreNotifications}
               customStyle={{
                 marginBottom: width * 0.12,

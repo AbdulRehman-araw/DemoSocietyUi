@@ -32,21 +32,22 @@ export const styles = StyleSheet.create({
   textInput: {
     width: '100%',
     borderColor: colors.gray,
-    borderWidth: 1,
+    borderBottomWidth: 1,
     color: colors.black,
-    borderRadius: width * 0.02,
+    // borderRadius: width * 0.02,
     paddingVertical: width * 0.03,
     paddingHorizontal: width * 0.03,
     fontFamily: fontsFamily.regular,
-    fontSize: width * 0.03
+    fontSize: width * 0.03,
+    marginVertical:14
   },
   username: {
-    color: colors.primary,
-    fontSize: width * 0.05,
+    color: colors.black,
+    fontSize: width * 0.03,
   },
   name: {
-    color: colors.lightdarkgray,
-    fontSize: width * 0.04,
+    color: colors.black,
+    fontSize: width * 0.05,
   },
   viewname: {
     flexDirection: 'row',

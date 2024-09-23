@@ -61,7 +61,13 @@ const Discussions = ({ navigation }) => {
           rightIconImg={Images.search}
           rightIconStyle={{ flex: 0.4 }}
           // customInputStyle={{ marginHorizontal: width * 0.01 }}
-          containerStyle={{ marginHorizontal: width * 0.04 }}
+          containerStyle={{
+            borderRadius: 12,
+            marginTop: width * 0.05,
+            backgroundColor: colors.white,
+            borderWidth: 1,
+            marginHorizontal: width * 0.04
+          }}
         />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{

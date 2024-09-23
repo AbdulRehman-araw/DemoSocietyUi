@@ -106,7 +106,12 @@ const Employee = ({navigation}) => {
           showRightIcon={true}
           rightIconImg={Images.search}
           rightIconStyle={{flex: 0.4}}
-          containerStyle={{borderRadius: 12, backgroundColor: colors.white}}
+          containerStyle={{
+            borderRadius: 12,
+            marginTop: width * 0.05,
+            backgroundColor: colors.white,
+            borderWidth: 1,
+          }}
         />
 
         <View

@@ -241,6 +241,7 @@ const CreateAmenity = ({ navigation }) => {
                   required: 'Please enter location.',
                 }}
                 onSubmitEditing={handleSubmit(createAmenity)}
+                img={Images.userIcon}
               />
               <FilledTextField
                 name={'managerName'}
@@ -252,6 +253,7 @@ const CreateAmenity = ({ navigation }) => {
                   required: 'Please enter manager name.',
                 }}
                 onSubmitEditing={handleSubmit(createAmenity)}
+                img={Images.userIcon}
               />
               <FilledTextField
                 name={'contactNo'}
@@ -264,6 +266,7 @@ const CreateAmenity = ({ navigation }) => {
                   required: 'Please enter contact no.',
                 }}
                 onSubmitEditing={handleSubmit(createAmenity)}
+                img={Images.userIcon}
               />
 
               <View
@@ -280,6 +283,7 @@ const CreateAmenity = ({ navigation }) => {
                       required: 'Please enter minimum no of people',
                     }}
                     onSubmitEditing={handleSubmit(createAmenity)}
+                    img={Images.userIcon}
                   />
                 </View>
 
@@ -295,6 +299,7 @@ const CreateAmenity = ({ navigation }) => {
                       required: 'Please enter maximum number of people',
                     }}
                     onSubmitEditing={handleSubmit(createAmenity)}
+                    img={Images.userIcon}
                   />
                 </View>
               </View>

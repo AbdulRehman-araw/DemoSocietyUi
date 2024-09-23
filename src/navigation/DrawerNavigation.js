@@ -23,8 +23,8 @@ export default function DrawerNavigation() {
       screenOptions={{
         drawerType: "slide",
         drawerStyle: {
-          // width: width * 0.7,
-          backgroundColor: colors.white
+          width: width * 0.7,
+          backgroundColor: colors.white,
         },
         headerShown: false,
         drawerActiveBackgroundColor: Colors.transparent,

@@ -8,6 +8,7 @@ export default StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: colors.white,
+    elevation:6
 
   },
   topView: {
@@ -23,8 +24,8 @@ export default StyleSheet.create({
     marginTop: height * 0.06
   },
   iconStyle: {
-    width: width * 0.05,
-    height: width * 0.05,
+    width: width * 0.08,
+    height: width * 0.08,
   },
   iconimg: {
     width: width * 0.3,

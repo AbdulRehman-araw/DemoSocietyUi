@@ -27,4 +27,5 @@ export const colors = {
     dark: '#0C0502',
     gradientColor: ['#FF6A16', '#833E18'],
     btnInactiveColor: '#9D8B7A',
+    darkBrown:'#833E18'
 }

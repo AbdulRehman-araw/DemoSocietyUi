@@ -22,6 +22,7 @@ import CustomText from '../../components/CustomText'
 import { fontsFamily } from '../../assets/Fonts'
 import { LayoutAnimation } from 'react-native'
 import { UIManager } from 'react-native'
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton'
 
 const { width } = Dimensions.get("window")
 
@@ -171,6 +172,7 @@ const AddContact = ({ navigation }) => {
               name={'contactType'}
               title="Select Contact Type"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: "Please select contact type",
@@ -184,6 +186,7 @@ const AddContact = ({ navigation }) => {
               name={'contactName'}
               placeholder="Contact Name"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: "Please enter contact name.",
@@ -194,6 +197,7 @@ const AddContact = ({ navigation }) => {
               name={'contactNo'}
               placeholder="Contact No"
               type={'number-pad'}
+              variant={'outlined'}
               control={control}
               maxLength={11}
               rules={{
@@ -251,9 +255,9 @@ const AddContact = ({ navigation }) => {
             <View style={{ marginTop: width * 0.03, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', flexWrap: "wrap" }}>
 
               <View style={{ width: '47%' }}>
-                <PrimaryButton
+                <LinearGradientPrimaryButton
                   outlined
-                  customStyle={{ padding: width * 0.032, marginTop: 15, borderColor: colors.primary }}
+                  customStyle={{ padding: width * 0.032, }}
                   textStyle={{ color: colors.primary }}
                   title={'Cancel'}
                   onPress={() => goBack()}
@@ -261,7 +265,7 @@ const AddContact = ({ navigation }) => {
               </View>
 
               <View style={{ width: '47%' }}>
-                <PrimaryButton
+                <LinearGradientPrimaryButton
                   customStyle={{ padding: width * 0.032 }}
                   title={'Create'}
                   loader={loader}

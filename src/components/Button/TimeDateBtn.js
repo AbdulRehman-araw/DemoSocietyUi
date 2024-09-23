@@ -19,30 +19,35 @@ const TimeDateBtn = ({
   showRightIcon,
   rightIconImg,
   rightIconStyle,
+  mainContainer
 }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log("opennnn");
-        setOpen(true)
+        console.log('opennnn');
+        setOpen(true);
       }}
       style={{
         ...styles.btnStyle,
         // width: variant == 'light' ? width * 0.45 : width * 0.42,
-        borderColor: variant == 'light' ? colors.gray : colors.white,
+        borderColor: variant == 'light' ? colors.gray : colors.primary,
         borderRadius: variant == 'light' ? 12 : 8,
-        backgroundColor:
-          variant == 'light' ? colors.white : colors.primaryLight,
+        backgroundColor: variant == 'light' ? colors.white : colors.white,
         flex: 1,
+        ...mainContainer
       }}>
       {prefixIcon ? (
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {!showRightIcon && (
             <View style={styles.img}>
               <Image
-                source={icon ? icon : Images.calendar}
+                source={icon ? icon : Images.calender_outlined}
                 resizeMode="contain"
-                style={{height: '100%', width: '100%'}}
+                style={{
+                  height: '70%',
+                  width: '70%',
+                  // tintColor: colors.primary,
+                }}
               />
             </View>
           )}
@@ -51,7 +56,7 @@ const TimeDateBtn = ({
               fontWeight={fontsFamily.regular}
               style={{
                 ...styles.textStyle,
-                color: variant == 'light' ? colors.black : colors.primary,
+                color: variant == 'light' ? colors.black : colors.black,
               }}>
               {title}
             </CustomText>
@@ -98,5 +103,6 @@ const styles = StyleSheet.create({
   rightIcon: {
     width: width * 0.04,
     height: width * 0.04,
+    tintColor: colors.white,
   },
 });

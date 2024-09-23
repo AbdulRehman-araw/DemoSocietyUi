@@ -11,39 +11,40 @@ import {
   BackHandler,
   Alert,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { colors } from '../../styles/colors';
-import { styles } from './styles/styles';
+import React, {useEffect, useState} from 'react';
+import {colors} from '../../styles/colors';
+import {styles} from './styles/styles';
 import CustomText from '../../components/CustomText';
 import Header from '../../components/Header/Header';
 import SlideButton from '../../components/Button/SlideButton';
-import { text } from '../../res/strings';
-import { Images } from '../../assets/Images';
-import { fontsFamily } from '../../assets/Fonts';
+import {text} from '../../res/strings';
+import {Images} from '../../assets/Images';
+import {fontsFamily} from '../../assets/Fonts';
 import ListCon from './ListCon';
-import { useSelector } from 'react-redux';
-import { apiCall } from '../../Services/apiCall';
-import { ActivityIndicator } from 'react-native';
+import {useSelector} from 'react-redux';
+import {apiCall} from '../../Services/apiCall';
+import {ActivityIndicator} from 'react-native';
 import FilledTextField from '../../components/TextField/FilledTextField';
-import { useForm } from 'react-hook-form';
-import { useIsFocused } from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import {useIsFocused} from '@react-navigation/native';
 import DropDown from '../../components/TextField/DropDown';
 import CustomModal from '../../components/Modal/CustomModal';
 import TimeDateBtn from '../../components/Button/TimeDateBtn';
-import { getFormattedDate, getFormattedTime } from '../../utils/helperFunction';
+import {getFormattedDate, getFormattedTime} from '../../utils/helperFunction';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import ImageCropPicker from 'react-native-image-crop-picker';
-import { baseUrl } from '../../../axios';
+import {baseUrl} from '../../../axios';
 import moment from 'moment';
 import AlertModal from '../../components/Modal/AlertModal';
 import PostDatesPicker from '../../components/Modal/PostDatesPicker';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const CreateEvent = ({ navigation }) => {
+const CreateEvent = ({navigation}) => {
   const foucsed = useIsFocused();
-  const { control, handleSubmit, setValue, clearErrors } = useForm();
+  const {control, handleSubmit, setValue, clearErrors} = useForm();
 
   const [loader, setLoader] = useState(false);
   const [venue, setVenue] = useState([]);
@@ -91,7 +92,7 @@ const CreateEvent = ({ navigation }) => {
           type: file.mime,
           name: filePath[filePath.length - 1],
         });
-        const { data } = await apiCall.uploadEventImage(formData);
+        const {data} = await apiCall.uploadEventImage(formData);
         setImage(data);
       });
     } catch (err) {
@@ -101,7 +102,7 @@ const CreateEvent = ({ navigation }) => {
 
   const getVenue = async () => {
     try {
-      const { data } = await apiCall.getVenue();
+      const {data} = await apiCall.getVenue();
       setVenue(data);
     } catch (error) {
       console.log('file: createEvent.js:53 => createEvent => error:', error);
@@ -124,7 +125,7 @@ const CreateEvent = ({ navigation }) => {
           eventTime: moment(time).format('YYYY-MM-DDTHH:mm'),
           eventDescription: formData.eventDescription,
         };
-        const { message } = await apiCall.createEvent(obj);
+        const {message} = await apiCall.createEvent(obj);
         setAlertType('s');
         setErrorModalText(message);
         setErrorModal(true);
@@ -192,7 +193,7 @@ const CreateEvent = ({ navigation }) => {
         type={alertType}
       />
 
-      <View style={{ paddingHorizontal: width * 0.032, flex: 1 }}>
+      <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
         <Header onBack={goBack} title={'Create Event'} />
 
         <ScrollView
@@ -201,7 +202,7 @@ const CreateEvent = ({ navigation }) => {
             flexGrow: 1,
             paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
           }}>
-          <View style={{ paddingHorizontal: width * 0.038 }}>
+          <View style={{paddingHorizontal: width * 0.038}}>
             {/* <TouchableOpacity activeOpacity={0.8} style={styles.uploadCircle} onPress={() => uploadImage()}>
               <Image source={image ? { uri: image } : Images.camera} resizeMode="contain"
                 style={{ width: width * 0.12, height: width * 0.12 }} />
@@ -221,16 +222,16 @@ const CreateEvent = ({ navigation }) => {
               <ActivityIndicator
                 size={'large'}
                 color={colors.primary}
-                style={{ marginTop: 20 }}
+                style={{marginTop: 20}}
               />
             )}
             {image && (
               <View>
                 <Image
                   onLoad={() => setImageLoader(false)}
-                  source={{ uri: baseUrl + image }}
+                  source={{uri: baseUrl + image}}
                   resizeMode="contain"
-                  style={{ width: 'auto', height: width * 0.6 }}
+                  style={{width: 'auto', height: width * 0.6}}
                 />
               </View>
             )}
@@ -240,6 +241,7 @@ const CreateEvent = ({ navigation }) => {
               placeholder="Event Name"
               maxLength={25}
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: 'Please enter event name.',
@@ -251,9 +253,10 @@ const CreateEvent = ({ navigation }) => {
               placeholder="Description"
               maxLength={100}
               type={'default'}
+              variant={'outlined'}
               multiline={true}
               numberOfLines={4}
-              customInputStyle={{ height: width * 0.3 }}
+              customInputStyle={{height: width * 0.3}}
               control={control}
               rules={{
                 required: 'Please enter description.',
@@ -265,6 +268,7 @@ const CreateEvent = ({ navigation }) => {
               maxLength={25}
               placeholder="Event Type"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: 'Please enter event type.',
@@ -277,7 +281,7 @@ const CreateEvent = ({ navigation }) => {
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
               }}>
-              <View style={{ width: '47%' }}>
+              <View style={{width: '47%'}}>
                 <TimeDateBtn
                   variant={'primary'}
                   title={date == new Date() ? 'Date' : getFormattedDate(date)}
@@ -285,7 +289,7 @@ const CreateEvent = ({ navigation }) => {
                   setOpen={() => [setMode('date'), setOpen1(true)]}
                 />
               </View>
-              <View style={{ width: '47%' }}>
+              <View style={{width: '47%'}}>
                 <TimeDateBtn
                   variant={'primary'}
                   icon={Images.time3x}
@@ -299,6 +303,7 @@ const CreateEvent = ({ navigation }) => {
               name={'venue'}
               title="Select Venue"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: 'Please select venue',
@@ -317,23 +322,21 @@ const CreateEvent = ({ navigation }) => {
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
               }}>
-              <View style={{ width: '47%' }}>
-                <PrimaryButton
+              <View style={{width: '47%'}}>
+                <LinearGradientPrimaryButton
                   outlined
                   customStyle={{
                     padding: width * 0.032,
-                    marginTop: 15,
-                    borderColor: colors.primary,
                   }}
-                  textStyle={{ color: colors.primary }}
+                  textStyle={{color: colors.primary}}
                   title={'Cancel'}
                   onPress={() => goBack()}
                 />
               </View>
 
-              <View style={{ width: '47%' }}>
-                <PrimaryButton
-                  customStyle={{ padding: width * 0.032 }}
+              <View style={{width: '47%'}}>
+                <LinearGradientPrimaryButton
+                  customStyle={{padding: width * 0.032}}
                   title={'Create'}
                   loader={loader}
                   onPress={handleSubmit(createEvent)}
@@ -356,13 +359,13 @@ const CreateEvent = ({ navigation }) => {
             setDate={
               mode == 'date'
                 ? e => {
-                  console.log("e===>", e);
-                  setDate(e);
-                }
+                    console.log('e===>', e);
+                    setDate(e);
+                  }
                 : e => {
-                  console.log("e===>", e);
-                  setTime(e);
-                }
+                    console.log('e===>', e);
+                    setTime(e);
+                  }
             }
             closeModal={() => setOpen(false)}
             date={mode == 'date' ? date : time}

@@ -20,6 +20,7 @@ import {useSelector} from 'react-redux';
 import {apiCall} from '../../Services/apiCall';
 import {fontsFamily} from '../../assets/Fonts';
 import VoucherCard from './VoucherCard';
+import VoucherNewCard from './VoucherNewCard';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -77,7 +78,7 @@ const CashPaymentVoucher = ({navigation}) => {
           onBack={goBack}
           title={'Cash Payment Vouchers'}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => navigation.navigate('createCashPaymentVoucher')}
         />
         <View
@@ -92,7 +93,7 @@ const CashPaymentVoucher = ({navigation}) => {
           ) : cashPaymentVouchers?.length > 0 ? (
             <FlatList
               data={cashPaymentVouchers}
-              renderItem={({item}) => <VoucherCard data={item} />}
+              renderItem={({item}) => <VoucherNewCard data={item} />}
               keyExtractor={item => item.id}
             />
           ) : (

@@ -195,7 +195,7 @@ const Cafeteria = ({navigation, route}) => {
           showRightBtn={
             permission?.canAdd ? (role == 'User' ? false : true) : false
           }
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           headerContainer={{
             paddingHorizontal: width * 0.032,
             marginBottom: height * 0.02,

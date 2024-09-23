@@ -120,6 +120,7 @@ const Visitors = ({ navigation, route }) => {
           Details?.accountID,
           selectedItem == 'Upcoming' ? true : false,
         );
+        console.log("🚀 ~ getData ~ data:", data)
         setData(data?.visitorsList);
       } else {
         const formattedStartTime = startTimeKey ? startTime.toISOString() : '';
@@ -131,6 +132,7 @@ const Visitors = ({ navigation, route }) => {
           formattedStartTime,
           formattedEndTime,
         );
+        console.log("🚀 ~ getData ~ data:", data)
         setData(data?.visitorsList);
       }
     } catch (error) {

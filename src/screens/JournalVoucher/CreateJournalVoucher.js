@@ -20,6 +20,7 @@ import { TouchableOpacity } from 'react-native'
 import { Images } from '../../assets/Images'
 import CustomText from '../../components/CustomText'
 import { fontsFamily } from '../../assets/Fonts'
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton'
 
 const { width } = Dimensions.get("window")
 
@@ -116,7 +117,7 @@ const CreateJournalVoucher = ({ navigation }) => {
       <View style={{ paddingHorizontal: width * 0.032, flex: 1 }}>
         <Header
           onBack={goBack}
-          title={"Create"}
+          title={"Add New"}
         />
 
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
@@ -231,7 +232,7 @@ const CreateJournalVoucher = ({ navigation }) => {
             }
 
             <View style={{ marginVertical: width * 0.07 }}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{ padding: width * 0.032 }}
                 title={'Submit'}
                 loader={loading}

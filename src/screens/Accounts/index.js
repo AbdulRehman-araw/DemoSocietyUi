@@ -27,6 +27,7 @@ import {useSelector} from 'react-redux';
 import CustomText from '../../components/CustomText';
 import {fontsFamily} from '../../assets/Fonts';
 import {Images} from '../../assets/Images';
+import SocietyCard from '../../components/DetailCard/SocietyCard';
 
 const {width, height} = Dimensions.get('window');
 
@@ -54,57 +55,57 @@ const Accounts = ({navigation}) => {
   const accountManage = [
     {
       name: 'Expenses',
-      icon: Images.Expenses,
+      icon: Images.expenseAccounts,
       path: 'expenses',
     },
     {
       name: 'Invoices',
-      icon: Images.Invoices,
+      icon: Images.invoiceAccount,
       path: 'invoices',
     },
     {
       name: 'Purchases',
-      icon: Images.Purchase,
+      icon: Images.purchaseAccount,
       path: 'purchases',
     },
     {
       name: 'Reports',
-      icon: Images.report2,
+      icon: Images.reportAccount,
       path: 'reports',
     },
     {
       name: 'Vouchers',
-      icon: Images.termscondition,
+      icon: Images.voucherAccount,
       path: 'vouchers',
     },
     {
       name: 'Vendors',
-      icon: Images.Vendor,
+      icon: Images.vendorAccount,
       path: 'vendors',
     },
     {
       name: 'Banks',
-      icon: Images.bank,
+      icon: Images.bankAccount,
       path: 'banks',
     },
     {
       name: 'Expense Accounts',
-      icon: Images.ExpenseAccount,
+      icon: Images.expensesAccount,
       path: 'expenseAccounts',
     },
     {
       name: 'Receiving',
-      icon: Images.Receiving,
+      icon: Images.recievingAccount,
       path: 'receiving',
     },
     {
       name: 'Service Contracts',
-      icon: Images.ServiceContract,
+      icon: Images.serviceContractAccount,
       path: 'serviceContracts',
     },
     {
       name: 'Owners',
-      icon: Images.Owner2,
+      icon: Images.ownerAccount,
       path: 'owners',
     },
   ];
@@ -154,7 +155,7 @@ const Accounts = ({navigation}) => {
             <ActivityIndicator size={'small'} color={colors.primary} />
           ) : (
             <Fragment>
-              <View
+              {/* <View
                 style={{
                   backgroundColor: colors.primaryLight,
                   borderWidth: 1.5,
@@ -213,6 +214,28 @@ const Accounts = ({navigation}) => {
                   }}>
                   {accountsDetail?.totalApartments} Flats
                 </CustomText>
+              </View> */}
+
+              <View style={styles.mainCard}>
+                <View style={styles.image}>
+                  <Image
+                    source={Images.Hall5}
+                    style={{width: '100%', height: '100%', resizeMode: 'cover'}}
+                  />
+                </View>
+                <View style={styles.rightSide}>
+                  <CustomText
+                    children={'Luck Yard Apartment'}
+                    style={styles.title}
+                    fontWeight={fontsFamily.semiBold}
+                  />
+                  <CustomText
+                    children={'3048 Buford Town Duluth Georgia 30096'}
+                    numberOfLines={2}
+                    style={styles.description}
+                    fontWeight={fontsFamily.semiBold}
+                  />
+                </View>
               </View>
 
               <View
@@ -231,31 +254,34 @@ const Accounts = ({navigation}) => {
                       alignItems: 'center',
                       gap: width * 0.02,
                       backgroundColor: colors.primary,
-                      borderWidth: 1.5,
-                      borderColor: colors.lightoffwhite,
-                      borderRadius: 6,
+                      borderWidth: 2,
+                      borderColor: colors.darkBrown,
+                      borderRadius: 20,
                       padding: width * 0.03,
                     }}>
-                    <View style={{width: '75%'}}>
-                      <CustomText
-                        style={{fontSize: width * 0.025, color: colors.white}}>
-                        Total Receivables
-                      </CustomText>
-                      <CustomText
-                        style={{
-                          fontSize: width * 0.04,
-                          color: colors.white,
-                          fontWeight: 700,
-                        }}>
-                        {accountsDetail?.receiveables} PKR
-                      </CustomText>
-                    </View>
                     <View style={{width: '25%'}}>
                       <Image
                         source={Images.termscondition}
                         resizeMode="contain"
                         style={{width: '70%', tintColor: colors.white}}
                       />
+                    </View>
+                    <View style={{width: '75%'}}>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.028,
+                          color: colors.darkBrown,
+                        }}>
+                        Total Receivables
+                      </CustomText>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.05,
+                          color: colors.white,
+                          fontWeight: 700,
+                        }}>
+                        {accountsDetail?.receiveables} PKR
+                      </CustomText>
                     </View>
                   </View>
                 </View>
@@ -267,31 +293,34 @@ const Accounts = ({navigation}) => {
                       alignItems: 'center',
                       gap: width * 0.02,
                       backgroundColor: colors.primary,
-                      borderWidth: 1.5,
-                      borderColor: colors.lightoffwhite,
-                      borderRadius: 6,
+                      borderWidth: 2,
+                      borderColor: colors.darkBrown,
+                      borderRadius: 20,
                       padding: width * 0.03,
                     }}>
-                    <View style={{width: '75%'}}>
-                      <CustomText
-                        style={{fontSize: width * 0.025, color: colors.white}}>
-                        Total Payable
-                      </CustomText>
-                      <CustomText
-                        style={{
-                          fontSize: width * 0.04,
-                          color: colors.white,
-                          fontWeight: 700,
-                        }}>
-                        {accountsDetail?.payables} PKR
-                      </CustomText>
-                    </View>
                     <View style={{width: '25%'}}>
                       <Image
                         source={Images.termscondition}
                         resizeMode="contain"
                         style={{width: '70%', tintColor: colors.white}}
                       />
+                    </View>
+                    <View style={{width: '75%'}}>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.028,
+                          color: colors.darkBrown,
+                        }}>
+                        Total Payable
+                      </CustomText>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.05,
+                          color: colors.white,
+                          fontWeight: 700,
+                        }}>
+                        {accountsDetail?.payables} PKR
+                      </CustomText>
                     </View>
                   </View>
                 </View>
@@ -312,31 +341,34 @@ const Accounts = ({navigation}) => {
                       alignItems: 'center',
                       gap: width * 0.02,
                       backgroundColor: colors.primary,
-                      borderWidth: 1.5,
-                      borderColor: colors.lightoffwhite,
-                      borderRadius: 6,
+                      borderWidth: 2,
+                      borderColor: colors.darkBrown,
+                      borderRadius: 20,
                       padding: width * 0.03,
                     }}>
-                    <View style={{width: '75%'}}>
-                      <CustomText
-                        style={{fontSize: width * 0.025, color: colors.white}}>
-                        Total Purchase
-                      </CustomText>
-                      <CustomText
-                        style={{
-                          fontSize: width * 0.04,
-                          color: colors.white,
-                          fontWeight: 700,
-                        }}>
-                        0 PKR
-                      </CustomText>
-                    </View>
                     <View style={{width: '25%'}}>
                       <Image
                         source={Images.termscondition}
                         resizeMode="contain"
                         style={{width: '70%', tintColor: colors.white}}
                       />
+                    </View>
+                    <View style={{width: '75%'}}>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.028,
+                          color: colors.darkBrown,
+                        }}>
+                        Total Purchase
+                      </CustomText>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.05,
+                          color: colors.white,
+                          fontWeight: 700,
+                        }}>
+                        0 PKR
+                      </CustomText>
                     </View>
                   </View>
                 </View>
@@ -344,35 +376,38 @@ const Accounts = ({navigation}) => {
                   <View
                     style={{
                       flexDirection: 'row',
-                      justifyContent: 'space-between',
+                      justifyContent: 'space-evenly',
                       alignItems: 'center',
                       gap: width * 0.02,
                       backgroundColor: colors.primary,
-                      borderWidth: 1.5,
-                      borderColor: colors.lightoffwhite,
-                      borderRadius: 6,
+                      borderWidth: 2,
+                      borderColor: colors.darkBrown,
+                      borderRadius: 20,
                       padding: width * 0.03,
                     }}>
-                    <View style={{width: '75%'}}>
-                      <CustomText
-                        style={{fontSize: width * 0.025, color: colors.white}}>
-                        Total Sales
-                      </CustomText>
-                      <CustomText
-                        style={{
-                          fontSize: width * 0.04,
-                          color: colors.white,
-                          fontWeight: 700,
-                        }}>
-                        0 PKR
-                      </CustomText>
-                    </View>
                     <View style={{width: '25%'}}>
                       <Image
                         source={Images.termscondition}
                         resizeMode="contain"
                         style={{width: '70%', tintColor: colors.white}}
                       />
+                    </View>
+                    <View style={{width: '75%'}}>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.028,
+                          color: colors.darkBrown,
+                        }}>
+                        Total Sales
+                      </CustomText>
+                      <CustomText
+                        style={{
+                          fontSize: width * 0.05,
+                          color: colors.white,
+                          fontWeight: 700,
+                        }}>
+                        0 PKR
+                      </CustomText>
                     </View>
                   </View>
                 </View>
@@ -397,29 +432,31 @@ const Accounts = ({navigation}) => {
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                   justifyContent: 'flex-start',
-                  gap: width * 0.05,
+                  gap: width * 0.03,
                 }}>
                 {accountManage?.map(item => (
                   <TouchableOpacity
                     key={item.id}
                     onPress={() => navigation.navigate(item.path)}
                     style={{
-                      width: width * 0.25,
-                      height: width * 0.22,
+                      width: width * 0.2,
+                      height: width * 0.2,
                       alignItems: 'center',
                       justifyContent: 'center',
                       position: 'relative',
-                      borderWidth: 1.5,
-                      borderColor: colors.lightoffwhite,
+                      // borderWidth: 1.5,
+                      // borderColor: colors.lightoffwhite,
                       borderRadius: 10,
+                      margin:2
                     }}>
                     <Image
                       source={item.icon}
                       resizeMode="contain"
                       style={{
-                        width: '40%',
-                        height: '40%',
+                        width: '60%',
+                        height: '60%',
                         tintColor: colors.primary,
+                        marginVertical: 10,
                       }}
                     />
                     <CustomText

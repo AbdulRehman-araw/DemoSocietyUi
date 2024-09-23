@@ -41,10 +41,6 @@ const EDocuments = ({ navigation, route }) => {
   const servicePermission = useSelector(
     state => state.userDataReducer.servicePermission,
   );
-  console.log(
-    '🚀 ~ file: index.js:44 ~ EDocuments ~ servicePermission:',
-    servicePermission,
-  );
   const [data, setData] = useState([]);
   const [loader, setLoader] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -210,7 +206,7 @@ const EDocuments = ({ navigation, route }) => {
           showRightBtn={
             permission?.canAdd ? (role == 'User' ? false : true) : false
           }
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => setShowModal(true)}
         />
 
@@ -237,7 +233,7 @@ const EDocuments = ({ navigation, route }) => {
             data?.map((val, i) => {
               return (
                 <View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' ,borderBottomWidth:1, borderBottomColor:colors.primary}}>
                     <ListCon key={i} data={val} />
                     {role != 'User' && permission?.canDelete === true && (
                       <TouchableOpacity onPress={() => AlertFunction()}>

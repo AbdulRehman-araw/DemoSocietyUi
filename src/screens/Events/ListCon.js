@@ -19,7 +19,7 @@ const ListCon = ({data, navigation}) => {
   const localTimeStart = useLocalTime(dateStrStart);
   return (
     <>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         activeOpacity={0.9}
         style={{marginVertical: width * 0.02}}
         onPress={() =>
@@ -57,6 +57,114 @@ const ListCon = ({data, navigation}) => {
               ? null
               : moment(localTimeStart)?.format('h:mm A')}
           </CustomText>
+        </View>
+      </TouchableOpacity> */}
+
+      <TouchableOpacity
+        style={{
+          backgroundColor: colors.white,
+          elevation: 4,
+          borderRadius: 30,
+          overflow: 'hidden',
+          width: width * 0.43,
+          // height: 220,
+          margin: 8,
+        }}
+        onPress={() =>
+          navigation.navigate('eventDetail', {
+            data: data,
+          })
+        }>
+        <View style={{}}>
+          <Image
+            source={{uri: baseUrl + data?.image}}
+            resizeMode="cover"
+            // style={styles.imgcard}
+            style={{height: 120, width: '100%'}}
+          />
+        </View>
+
+        <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
+          <CustomText
+            fontWeight={fontsFamily.semiBold}
+            style={{color: colors.primary, fontSize: width * 0.04}}>
+            {data?.eventName}
+          </CustomText>
+
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <View style={{marginVertical: 16, padding: 6}}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <Image
+                  source={Images.eventBuilding}
+                  resizeMode="cover"
+                  style={{height: 16, width: 16}}
+                />
+                <CustomText
+                  fontWeight={fontsFamily.medium}
+                  style={{
+                    color: colors.gray,
+                    fontSize: width * 0.028,
+                    left: 8,
+                  }}>
+                  Main Building Hall
+                </CustomText>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginVertical: 8,
+                }}>
+                <Image
+                  source={Images.eventTime}
+                  resizeMode="cover"
+                  style={{height: 16, width: 16}}
+                />
+                <CustomText
+                  fontWeight={fontsFamily.medium}
+                  style={{
+                    color: colors.gray,
+                    fontSize: width * 0.028,
+                    left: 8,
+                  }}>
+                  3:00 PM - 5:00 PM
+                </CustomText>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Image
+                  source={Images.eventDate}
+                  resizeMode="cover"
+                  style={{height: 16, width: 16}}
+                />
+                <CustomText
+                  fontWeight={fontsFamily.medium}
+                  style={{
+                    color: colors.gray,
+                    fontSize: width * 0.028,
+                    left: 8,
+                  }}>
+                  7 September 2024
+                </CustomText>
+              </View>
+            </View>
+
+            <Image
+              source={Images.card_arrow}
+              resizeMode="contain"
+              style={{height: 12, width: 12, tintColor: colors.primary}}
+            />
+          </View>
         </View>
       </TouchableOpacity>
     </>

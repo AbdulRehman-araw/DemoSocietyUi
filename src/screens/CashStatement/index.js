@@ -25,6 +25,8 @@ import { fontsFamily } from '../../assets/Fonts';
 import TimeDateBtn from '../../components/Button/TimeDateBtn';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import { getFormattedDate } from '../../utils/helperFunction';
+import { Images } from '../../assets/Images';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 const { width } = Dimensions.get('window');
 
 const CashStatement = ({ navigation }) => {
@@ -255,29 +257,31 @@ const CashStatement = ({ navigation }) => {
               }}>
               <View style={{ width: '47%' }}>
                 <TimeDateBtn
-                  variant={'light'}
+                  // variant={'light'}
                   title={
                     fromDate == new Date()
                       ? 'From Date'
                       : getFormattedDate(fromDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('fromDate')]}
                 />
               </View>
               <View style={{ width: '47%' }}>
                 <TimeDateBtn
-                  variant={'light'}
+                  // variant={'light'}
                   title={
                     toDate == new Date() ? 'To Date' : getFormattedDate(toDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('toDate')]}
                 />
               </View>
             </View>
             <View style={{ marginVertical: width * 0.01 }}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{ padding: width * 0.032 }}
                 title={'View Statements'}
                 onPress={handleSubmit(getCashStatements)}

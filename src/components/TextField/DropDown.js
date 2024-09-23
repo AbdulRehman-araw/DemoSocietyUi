@@ -46,6 +46,7 @@ export default function DropDown({
               onPress={onPress}
               style={[
                 styles.inputContainer,
+                containerStyle,
                 variant == 'outlined' ? styles.outlined : styles.filled,
               ]}
               activeOpacity={0.8}>
@@ -65,7 +66,7 @@ export default function DropDown({
                     paddingVertical:
                       Platform.OS == 'ios' ? width * 0.034 : width * 0.036,
                     color:
-                      variant == 'outlined' ? colors.black : colors.primary,
+                      variant == 'outlined' ? colors.black : colors.darkGray,
                   }}
                   fontWeight={fontsFamily.regular}
                 />
@@ -96,11 +97,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: width * 0.02,
   },
   filled: {
-    backgroundColor: colors.primaryLight,
+    // backgroundColor: colors.primaryLight,
+    borderBottomWidth:1,borderBottomColor:colors.primary,
+    borderRadius:0
   },
   outlined: {
     borderWidth: 1,
-    borderColor: colors.gray,
+    borderColor: colors.primary,
   },
   imgStyle: {
     width: 18,
@@ -123,5 +126,6 @@ const styles = StyleSheet.create({
   rightIcon: {
     width: width * 0.03,
     height: width * 0.03,
+    tintColor:colors.primary
   },
 });

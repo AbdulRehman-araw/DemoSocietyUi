@@ -25,6 +25,8 @@ import {DataTable} from 'react-native-paper';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import CustomText from '../../components/CustomText';
 import {fontsFamily} from '../../assets/Fonts';
+import { Images } from '../../assets/Images';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 
 const {width} = Dimensions.get('window');
 
@@ -133,7 +135,8 @@ const VendorStatements = ({navigation}) => {
               rules={{
                 required: 'Please select vendor',
               }}
-              img={false}
+              img={Images.userIcon}
+              leftIconStyle={{tintColor:colors.primary}}
               onPress={() => {
                 setShowModal(true);
               }}
@@ -154,6 +157,7 @@ const VendorStatements = ({navigation}) => {
                       : getFormattedDate(fromDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('fromDate')]}
                 />
               </View>
@@ -164,12 +168,13 @@ const VendorStatements = ({navigation}) => {
                     toDate == new Date() ? 'To Date' : getFormattedDate(toDate)
                   }
                   prefixIcon={true}
+                  icon={Images.calender_outlined}
                   setOpen={() => [setOpen(true), setMode('toDate')]}
                 />
               </View>
             </View>
             <View style={{marginVertical: width * 0.01}}>
-              <PrimaryButton
+              <LinearGradientPrimaryButton
                 customStyle={{padding: width * 0.032}}
                 title={'View Statements'}
                 onPress={handleSubmit(getVendorStatements)}

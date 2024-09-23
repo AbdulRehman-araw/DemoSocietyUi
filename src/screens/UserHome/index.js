@@ -11,37 +11,39 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomText from '../../components/CustomText';
 import styles from './styles/styles';
-import { colors } from '../../styles/colors';
-import { Images } from '../../assets/Images';
-import { fontsFamily } from '../../assets/Fonts';
-import { text } from '../../res/strings';
-import { AnnouncementBoxLight } from '../../components/AnnouncementBox';
-import { useDispatch, useSelector } from 'react-redux';
-import { apiCall } from '../../Services/apiCall';
-import { ActivityIndicator } from 'react-native';
-import { Linking } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
-import { Fragment } from 'react';
-import { baseUrl } from '../../../axios';
+import {colors} from '../../styles/colors';
+import {Images} from '../../assets/Images';
+import {fontsFamily} from '../../assets/Fonts';
+import {text} from '../../res/strings';
+import {AnnouncementBoxLight} from '../../components/AnnouncementBox';
+import {useDispatch, useSelector} from 'react-redux';
+import {apiCall} from '../../Services/apiCall';
+import {ActivityIndicator} from 'react-native';
+import {Linking} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+import {Fragment} from 'react';
+import {baseUrl} from '../../../axios';
 import messaging from '@react-native-firebase/messaging';
 import AlertModal from '../../components/Modal/AlertModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setUserData } from '../../redux/slices/userDataSlice';
+import {setUserData} from '../../redux/slices/userDataSlice';
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
-const UserHome = ({ navigation, route }) => {
+const UserHome = ({navigation, route}) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const [showAll, setShowAll] = useState(8);
   const [loader, setLoader] = useState(false);
   const role = useSelector(state => state.userDataReducer.userRole);
-  const { name } = useSelector(state => state.userDataReducer.userAccountDetails);
-  const { accountID } = useSelector(state => state.userDataReducer.userAccountDetails);
+  const {name} = useSelector(state => state.userDataReducer.userAccountDetails);
+  const {accountID} = useSelector(
+    state => state.userDataReducer.userAccountDetails,
+  );
   const [serviceLoader, setServiceLoader] = useState(false);
   const [services, setServices] = useState([]);
   const [announcementData, setAnnouncementData] = useState([]);
@@ -73,7 +75,7 @@ const UserHome = ({ navigation, route }) => {
   const GetNotifications = async () => {
     setLoader(true);
     try {
-      const { data } = await apiCall?.GetNotifications(true, 200, 1);
+      const {data} = await apiCall?.GetNotifications(true, 200, 1);
       setNotificationCount(data?.unSeen);
       setNotifications(data);
     } catch (error) {
@@ -93,7 +95,7 @@ const UserHome = ({ navigation, route }) => {
   const getAnnouncement = async (e = '') => {
     setLoader(true);
     try {
-      const { data } = await apiCall.getAnnouncement(accountID, e);
+      const {data} = await apiCall.getAnnouncement(accountID, e);
       setAnnouncementData(data);
     } catch (error) {
     } finally {
@@ -108,7 +110,7 @@ const UserHome = ({ navigation, route }) => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(onNotificationReceived);
 
-    console.warn('object')
+    console.warn('object');
     return unsubscribe;
   }, []);
 
@@ -119,7 +121,7 @@ const UserHome = ({ navigation, route }) => {
   const getServices = async () => {
     setServiceLoader(true);
     try {
-      const { data } = await apiCall.getServices(role);
+      const {data} = await apiCall.getServices(role);
       setServices(data);
     } catch (error) {
       // logout();
@@ -138,7 +140,7 @@ const UserHome = ({ navigation, route }) => {
         device_token: fcmToken,
       };
       await apiCall.notification(obj);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getToken = async () => {
@@ -156,7 +158,7 @@ const UserHome = ({ navigation, route }) => {
   const GetNotificationsBadge = async () => {
     setLoader(true);
     try {
-      const { data } = await apiCall.GetNotificationsBadge(true, 10, 1);
+      const {data} = await apiCall.GetNotificationsBadge(true, 10, 1);
 
       setNotifications(data);
     } catch (error) {
@@ -169,7 +171,7 @@ const UserHome = ({ navigation, route }) => {
     try {
       await apiCall.ViewNotification();
       close(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const requestPermission = async () => {
@@ -223,7 +225,7 @@ const UserHome = ({ navigation, route }) => {
 
       {!STATUSBAR_HEIGHT && (
         <View
-          style={{ backgroundColor: colors.primary, height: APPBAR_HEIGHT }}
+          style={{backgroundColor: colors.primary, height: APPBAR_HEIGHT}}
         />
       )}
 
@@ -237,17 +239,23 @@ const UserHome = ({ navigation, route }) => {
           top: Platform.OS === 'ios' ? -80 : -40,
         }}>
         <View
-          style={[styles.topView, { marginTop: Platform.OS == "ios" ? 120 : APPBAR_HEIGHT + width * 0.1 }]}>
+          style={[
+            styles.topView,
+            {
+              marginTop:
+                Platform.OS == 'ios' ? 120 : APPBAR_HEIGHT + width * 0.1,
+            },
+          ]}>
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Image
               source={Images.menuIcon}
               resizeMode="contain"
-              style={[styles.iconStyle, { tintColor: colors.white }]}
+              style={[styles.iconStyle, {tintColor: colors.white}]}
             />
           </TouchableOpacity>
           <CustomText
             fontWeight={fontsFamily.bold}
-            style={{ color: colors.white, fontSize: width * 0.04 }}>
+            style={{color: colors.white, fontSize: width * 0.04}}>
             Home
           </CustomText>
 
@@ -262,7 +270,7 @@ const UserHome = ({ navigation, route }) => {
                 right: -4,
                 top: -18,
               }}>
-              <CustomText style={{ color: colors.primary }}>
+              <CustomText style={{color: colors.primary}}>
                 {notificationCount}
               </CustomText>
             </View>
@@ -275,7 +283,7 @@ const UserHome = ({ navigation, route }) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{ flex: 0.6, justifyContent: 'center' }}>
+        <View style={{flex: 0.6, justifyContent: 'center'}}>
           <CustomText
             fontWeight={fontsFamily.medium}
             style={{
@@ -287,7 +295,7 @@ const UserHome = ({ navigation, route }) => {
           </CustomText>
           <CustomText
             fontWeight={fontsFamily.medium}
-            style={{ fontSize: width * 0.047, color: colors.white }}>
+            style={{fontSize: width * 0.047, color: colors.white}}>
             {checkTime()}!
           </CustomText>
         </View>
@@ -296,7 +304,7 @@ const UserHome = ({ navigation, route }) => {
       <ImageBackground source={Images.darkBG} style={styles.root}>
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: width * 0.08 }}
+          contentContainerStyle={{flexGrow: 1, paddingBottom: width * 0.08}}
           style={{
             marginHorizontal: width * 0.038,
             marginTop: Platform.OS === 'ios' ? -100 : -70,
@@ -312,13 +320,14 @@ const UserHome = ({ navigation, route }) => {
             }}>
             <CustomText
               fontWeight={fontsFamily.bold}
-              style={{ fontSize: width * 0.055 }}>
+              style={{fontSize: width * 0.055}}>
               {text.services}
             </CustomText>
 
-            <TouchableOpacity onPress={() => setShowAll(showAll == 20 ? 8 : 20)}>
+            <TouchableOpacity
+              onPress={() => setShowAll(showAll == 20 ? 8 : 20)}>
               <CustomText
-                style={{ fontSize: width * 0.032, color: colors.primary }}>
+                style={{fontSize: width * 0.032, color: colors.primary}}>
                 {showAll == 20 ? text.viewLess : text.viewAll}
               </CustomText>
             </TouchableOpacity>
@@ -332,7 +341,7 @@ const UserHome = ({ navigation, route }) => {
               gap: width * 0.013,
             }}>
             {serviceLoader ? (
-              <View style={{ width: width * 1, padding: width * 0.1 }}>
+              <View style={{width: width * 1, padding: width * 0.1}}>
                 <ActivityIndicator size={'small'} color={colors.primary} />
               </View>
             ) : services?.length > 0 ? (
@@ -346,8 +355,8 @@ const UserHome = ({ navigation, route }) => {
                           item.id == '15'
                             ? Linking.openURL('http://societyhood.com/')
                             : navigation.navigate(item.route, {
-                              data: { id: item?.id },
-                            })
+                                data: {id: item?.id},
+                              })
                         }
                         style={{
                           width: width * 0.22,
@@ -356,11 +365,11 @@ const UserHome = ({ navigation, route }) => {
                           justifyContent: 'center',
                         }}>
                         <Image
-                          source={{ uri: baseUrl + item.icon }}
+                          source={{uri: baseUrl + item.icon}}
                           resizeMode="contain"
-                          style={{ width: '70%', height: '70%' }}
+                          style={{width: '70%', height: '70%'}}
                         />
-                        <CustomText style={{ fontSize: width * 0.023 }}>
+                        <CustomText style={{fontSize: width * 0.023}}>
                           {item.name}
                         </CustomText>
                       </TouchableOpacity>
@@ -369,7 +378,11 @@ const UserHome = ({ navigation, route }) => {
               </>
             ) : (
               <View
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
                 <Text
                   style={{
                     color: colors.black,
@@ -390,16 +403,16 @@ const UserHome = ({ navigation, route }) => {
             }}>
             <CustomText
               fontWeight={fontsFamily.bold}
-              style={{ fontSize: width * 0.055, marginVertical: width * 0.05 }}>
+              style={{fontSize: width * 0.055, marginVertical: width * 0.05}}>
               {text.announcement}
             </CustomText>
 
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('announcement', { data: { id: 'none' } })
+                navigation.navigate('announcement', {data: {id: 'none'}})
               }>
               <CustomText
-                style={{ fontSize: width * 0.032, color: colors.primary }}>
+                style={{fontSize: width * 0.032, color: colors.primary}}>
                 View All
               </CustomText>
             </TouchableOpacity>
@@ -415,7 +428,7 @@ const UserHome = ({ navigation, route }) => {
               ))
           ) : (
             <View
-              style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
               <Text
                 style={{
                   color: colors.black,

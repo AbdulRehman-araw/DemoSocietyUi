@@ -26,6 +26,8 @@ import TimeDateBtn from '../../components/Button/TimeDateBtn';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import { getFormattedDate } from '../../utils/helperFunction';
 import StatementPdf from '../../components/StatementPdf';
+import { Images } from '../../assets/Images';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 const { width } = Dimensions.get('window');
 
 const CustomerStatements = ({ navigation }) => {
@@ -232,7 +234,8 @@ const CustomerStatements = ({ navigation }) => {
                 rules={{
                   required: 'Please select building',
                 }}
-                img={false}
+                img={Images.InactiveCommunity}
+                leftIconStyle={{tintColor:colors.primary, height:26,width:26}}
                 onPress={() => {
                   setShowBuildingModal(true);
                 }}
@@ -246,7 +249,8 @@ const CustomerStatements = ({ navigation }) => {
                 rules={{
                   required: 'Please select apartment',
                 }}
-                img={false}
+                img={Images.InactiveHome}
+                leftIconStyle={{tintColor:colors.primary, height:26,width:26}}
                 onPress={() => {
                   setShowModal(true);
                 }}
@@ -266,6 +270,7 @@ const CustomerStatements = ({ navigation }) => {
                         : getFormattedDate(fromDate)
                     }
                     prefixIcon={true}
+                    icon={Images.calender_outlined}
                     setOpen={() => [setOpen(true), setMode('fromDate')]}
                   />
                 </View>
@@ -276,12 +281,13 @@ const CustomerStatements = ({ navigation }) => {
                       toDate == new Date() ? 'To Date' : getFormattedDate(toDate)
                     }
                     prefixIcon={true}
+                    icon={Images.calender_outlined}
                     setOpen={() => [setOpen(true), setMode('toDate')]}
                   />
                 </View>
               </View>
               <View style={{ marginVertical: width * 0.01 }}>
-                <PrimaryButton
+                <LinearGradientPrimaryButton
                   customStyle={{ padding: width * 0.032 }}
                   title={'View Statements'}
                   onPress={handleSubmit(getCustomerStatements)}
@@ -301,6 +307,8 @@ const CustomerStatements = ({ navigation }) => {
                           borderColor: colors.gray,
                           borderWidth: 1,
                           borderRadius: 9,
+                          marginTop:30
+                          
                         }}>
                         <DataTable.Header
                           style={{
@@ -317,7 +325,7 @@ const CustomerStatements = ({ navigation }) => {
                           </DataTable.Title>
                           <DataTable.Title
                             numeric
-                            style={[styles.tableCell, styles.border]}>
+                            style={[styles.tableCell, ]}>
                             <CustomText
                               fontWeight={fontsFamily.semiBold}
                               style={{ color: colors.white }}>
@@ -326,7 +334,7 @@ const CustomerStatements = ({ navigation }) => {
                           </DataTable.Title>
                           <DataTable.Title
                             numeric
-                            style={[styles.tableCell, styles.border]}>
+                            style={[styles.tableCell, ]}>
                             <CustomText
                               fontWeight={fontsFamily.semiBold}
                               style={{ color: colors.white }}>
@@ -354,7 +362,7 @@ const CustomerStatements = ({ navigation }) => {
                               </Text>
                             </DataTable.Cell>
                             <DataTable.Cell
-                              style={[styles.tableCell, styles.border]}>
+                              style={[styles.tableCell, ]}>
                               <Text
                                 style={{
                                   fontFamily: fontsFamily.medium,
@@ -364,7 +372,7 @@ const CustomerStatements = ({ navigation }) => {
                               </Text>
                             </DataTable.Cell>
                             <DataTable.Cell
-                              style={[styles.tableCell, styles.border]}>
+                              style={[styles.tableCell, ]}>
                               <Text
                                 style={{
                                   fontFamily: fontsFamily.medium,
@@ -400,7 +408,7 @@ const CustomerStatements = ({ navigation }) => {
                           </DataTable.Title>
                           <DataTable.Title
                             numeric
-                            style={[styles.tableCell, styles.border]}>
+                            style={[styles.tableCell, ]}>
                             <CustomText
                               fontWeight={fontsFamily.semiBold}
                               style={{ color: colors.white }}>
@@ -409,7 +417,7 @@ const CustomerStatements = ({ navigation }) => {
                           </DataTable.Title>
                           <DataTable.Title
                             numeric
-                            style={[styles.tableCell, styles.border]}>
+                            style={[styles.tableCell, ]}>
                             <CustomText
                               fontWeight={fontsFamily.semiBold}
                               style={{ color: colors.white }}>

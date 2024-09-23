@@ -215,11 +215,11 @@ const ListCon = ({ data }) => {
   };
   return (
     <>
-      <View style={{ flexDirection: 'row', alignItems: 'center', width: '80%' }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', width: '80%', }}>
         <TouchableOpacity
           style={styles.water}
           onPress={() => setModalVisible(true)}>
-          <View
+          {/* <View
             style={{
               width: width * 0.06,
               height: width * 0.06,
@@ -230,14 +230,14 @@ const ListCon = ({ data }) => {
               resizeMode="contain"
               style={{ width: '100%', height: '100%' }}
             />
-          </View>
+          </View> */}
 
           <View>
             <CustomText
               fontWeight={fontsFamily.bold}
               style={{
                 color: colors.black,
-                fontSize: width * 0.035,
+                fontSize: width * 0.03,
                 marginTop: 3,
                 width: width * 0.6,
               }}>
@@ -245,8 +245,8 @@ const ListCon = ({ data }) => {
             </CustomText>
 
             <CustomText
-              fontWeight={fontsFamily.bold}
-              style={{ color: colors.lightgray, fontSize: width * 0.032 }}>
+              fontWeight={fontsFamily.semiBold}
+              style={{ color: colors.black, fontSize: width * 0.028 }}>
               {moment(data?.date).format('DD MMMM YYYY, h:mm:ss A')}
             </CustomText>
           </View>

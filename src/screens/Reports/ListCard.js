@@ -7,34 +7,38 @@ import {
   ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Image
+  Image,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomText from '../../components/CustomText';
-import { fontsFamily } from '../../assets/Fonts';
-import { colors } from '../../styles/colors';
-import { useNavigation } from '@react-navigation/native';
-import { Images } from '../../assets/Images';
+import {fontsFamily} from '../../assets/Fonts';
+import {colors} from '../../styles/colors';
+import {useNavigation} from '@react-navigation/native';
+import {Images} from '../../assets/Images';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const ListCard = ({ data }) => {
-
-  const navigation = useNavigation()
+const ListCard = ({data}) => {
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       activeOpacity={1}
-      style={styles.card1} onPress={() => navigation.navigate(data.path)}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 10 }}>
-        <Image source={Images.userIcon} resizeMode="contain" style={{ width: width * 0.04, }} />
-        <View style={{ marginLeft: 20, }}>
+      style={styles.card1}
+      onPress={() => navigation.navigate(data.path)}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{flex: 1}}>
           <CustomText
             fontWeight={fontsFamily.bold}
-            style={{ color: colors.primary, fontSize: width * 0.039 }}>
+            style={{color: colors.black, fontSize: width * 0.034}}>
             {data?.title}
           </CustomText>
         </View>
+        <Image
+          source={Images.card_arrow}
+          resizeMode="contain"
+          style={{width: width * 0.04}}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -45,14 +49,14 @@ export default ListCard;
 const styles = StyleSheet.create({
   card1: {
     flexDirection: 'row',
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
     alignSelf: 'center',
-    borderWidth: 1.3,
-    borderColor: colors.gray,
-    borderRadius: 8,
+    borderBottomWidth: 1.3,
+    borderColor: colors.primary,
+    // borderRadius: 8,
     width: width * 0.86,
     height: width * 0.15,
     marginTop: 20,
-  }
+  },
 });

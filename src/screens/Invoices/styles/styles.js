@@ -12,11 +12,11 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   username: {
-    color: colors.primary,
-    fontSize: width * 0.04,
+    color: colors.black,
+    fontSize: width * 0.035,
   },
   name: {
-    color: colors.lightdarkgray,
+    color: colors.darkGray,
     fontSize: width * 0.024,
   },
   card1: {

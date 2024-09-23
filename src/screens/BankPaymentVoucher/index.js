@@ -75,7 +75,7 @@ const BankPaymentVoucher = ({navigation}) => {
           onBack={goBack}
           title={'Bank Payment Vouchers'}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => navigation.navigate('createBankPaymentVoucher')}
         />
         <View

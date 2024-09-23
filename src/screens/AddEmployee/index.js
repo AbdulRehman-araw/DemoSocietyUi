@@ -28,6 +28,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import PermissionModal from './permissionModal';
 import AlertModal from '../../components/Modal/AlertModal';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 
 const {width} = Dimensions.get('window');
 
@@ -184,6 +185,7 @@ const AddEmployee = ({navigation}) => {
               name={'name'}
               placeholder="Name"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: 'Please enter name.',
@@ -194,6 +196,7 @@ const AddEmployee = ({navigation}) => {
               name={'cnic'}
               placeholder="CNIC/Passport No"
               type={'number-pad'}
+              variant={'outlined'}
               maxLength={13}
               control={control}
               rules={{
@@ -206,6 +209,7 @@ const AddEmployee = ({navigation}) => {
               placeholder="Phone Number"
               type={'number-pad'}
               control={control}
+              variant={'outlined'}
               maxLength={11}
               rules={{
                 required: 'Please enter phone number.',
@@ -216,6 +220,7 @@ const AddEmployee = ({navigation}) => {
               name={'address'}
               placeholder="Address"
               type={'default'}
+              variant={'outlined'}
               control={control}
               rules={{
                 required: 'Please enter home no.',
@@ -227,6 +232,7 @@ const AddEmployee = ({navigation}) => {
               placeholder="Email"
               type={'default'}
               control={control}
+              variant={'outlined'}
               rules={{
                 required: 'Email is required',
                 pattern: {
@@ -241,6 +247,7 @@ const AddEmployee = ({navigation}) => {
               placeholder="Designation"
               type={'default'}
               control={control}
+              variant={'outlined'}
               rules={{
                 required: 'Please enter employee designation.',
               }}
@@ -252,6 +259,7 @@ const AddEmployee = ({navigation}) => {
               placeholder="Salary"
               type={'default'}
               control={control}
+              variant={'outlined'}
               rules={{
                 required: 'Please enter employee salary.',
               }}
@@ -348,12 +356,10 @@ const AddEmployee = ({navigation}) => {
                 flexWrap: 'wrap',
               }}>
               <View style={{width: '47%'}}>
-                <PrimaryButton
+                <LinearGradientPrimaryButton
                   outlined
                   customStyle={{
                     padding: width * 0.032,
-                    marginTop: 15,
-                    borderColor: colors.primary,
                   }}
                   textStyle={{color: colors.primary}}
                   title={'Back'}
@@ -361,7 +367,7 @@ const AddEmployee = ({navigation}) => {
                 />
               </View>
               <View style={{width: '47%'}}>
-                <PrimaryButton
+                <LinearGradientPrimaryButton
                   customStyle={{padding: width * 0.032}}
                   title={'Submit'}
                   loader={loading}

@@ -10,25 +10,25 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CustomText from '../../components/CustomText';
 import styles from './styles/styles';
-import { colors } from '../../styles/colors';
-import { Images } from '../../assets/Images';
-import { fontsFamily } from '../../assets/Fonts';
-import { text } from '../../res/strings';
-import { AdminServices } from '../../utils/defaultData';
-import { useDispatch, useSelector } from 'react-redux';
+import {colors} from '../../styles/colors';
+import {Images} from '../../assets/Images';
+import {fontsFamily} from '../../assets/Fonts';
+import {text} from '../../res/strings';
+import {AdminServices} from '../../utils/defaultData';
+import {useDispatch, useSelector} from 'react-redux';
 import notifee, {
   AndroidImportance,
   AndroidVisibility,
 } from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
-import { useIsFocused } from '@react-navigation/native';
-import { apiCall } from '../../Services/apiCall';
-import { ActivityIndicator } from 'react-native';
-import { Text } from 'react-native';
-import { baseUrl } from '../../../axios';
+import {useIsFocused} from '@react-navigation/native';
+import {apiCall} from '../../Services/apiCall';
+import {ActivityIndicator} from 'react-native';
+import {Text} from 'react-native';
+import {baseUrl} from '../../../axios';
 import {
   setServicePermission,
   setUserData,
@@ -40,13 +40,13 @@ import DrawerScreenWrapper from '../../components/DrawerScreenWrapper';
 
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const AdminHome = ({ navigation, route }) => {
+const AdminHome = ({navigation, route}) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const role = useSelector(state => state.userDataReducer.userRole);
-  const { name } = useSelector(state => state.userDataReducer.userAccountDetails);
+  const {name} = useSelector(state => state.userDataReducer.userAccountDetails);
   const [refreshing, setRefreshing] = useState(false);
   const [loader, setLoader] = useState(false);
   const [services, setServices] = useState([]);
@@ -74,7 +74,7 @@ const AdminHome = ({ navigation, route }) => {
   const getServices = async () => {
     setLoader(true);
     try {
-      const { data } = await apiCall.getServices(role);
+      const {data} = await apiCall.getServices(role);
       dispatch(setServicePermission(data));
       setServices(data);
     } catch (error) {
@@ -88,11 +88,11 @@ const AdminHome = ({ navigation, route }) => {
     const token = await AsyncStorage.getItem('fcmToken');
 
     try {
-      const result = await apiCall?.logout({ device_token: token });
+      const result = await apiCall?.logout({device_token: token});
       dispatch(setUserData([]));
       AsyncStorage.clear();
       navigation.replace('splash');
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const sendNotificationToken = async fcmToken => {
@@ -101,7 +101,7 @@ const AdminHome = ({ navigation, route }) => {
         device_token: fcmToken,
       };
       await apiCall.notification(obj);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getToken = async () => {
@@ -173,7 +173,7 @@ const AdminHome = ({ navigation, route }) => {
   const GetNotificationsBadge = async () => {
     setLoader(true);
     try {
-      const { data } = await apiCall.GetNotificationsBadge(true, 10, 1);
+      const {data} = await apiCall.GetNotificationsBadge(true, 10, 1);
       setNotifications(data?.unSeen);
       setNotificationCount(data?.data?.unSeen);
     } catch (error) {
@@ -187,7 +187,7 @@ const AdminHome = ({ navigation, route }) => {
       await apiCall.ViewNotification();
 
       close(false);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const onNotificationReceived = async remoteMessage => {
@@ -281,10 +281,12 @@ const AdminHome = ({ navigation, route }) => {
   // }, []);
 
   return (
-    <DrawerScreenWrapper>
     <View style={styles.root}>
-      <ImageBackground source={Images.darkBG}>
-        {/* <ImageBackground
+      <DrawerScreenWrapper>
+        <ImageBackground
+          source={Images.darkBG}
+          style={{borderTopLeftRadius: 21, overflow: 'hidden'}}>
+          {/* <ImageBackground
         source={Images.adminBanner}
         resizeMode="cover"
         style={{
@@ -293,215 +295,229 @@ const AdminHome = ({ navigation, route }) => {
           paddingHorizontal: width * 0.038,
           position: 'relative',
         }}> */}
-        <StatusBar
-          translucent
-          backgroundColor={colors.primary}
-          barStyle="light-content"
-        />
-
-        {!STATUSBAR_HEIGHT && (
-          <View
-            style={{ backgroundColor: colors.primary, height: APPBAR_HEIGHT }}
+          <StatusBar
+            translucent
+            backgroundColor={colors.primary}
+            barStyle="light-content"
           />
-        )}
 
-        <View
-          style={[styles.topView, { marginTop: APPBAR_HEIGHT + width * 0.01 }]}>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Image
-              source={Images.menuIcon}
-              resizeMode="contain"
-              style={[styles.iconStyle, { width: width * 0.09, height: width * 0.09, marginLeft: 10 }]}
-            />
-          </TouchableOpacity>
-
-          {notificationCount !== 0 && (
+          {!STATUSBAR_HEIGHT && (
             <View
-              style={{
-                backgroundColor: colors.white,
-                paddingHorizontal: 10,
-                paddingVertical: notifications?.data?.unSeen > 9 ? 7 : 5,
-                borderRadius: 50,
-                position: 'absolute',
-                right: -5,
-                top: -20,
-              }}>
-              <CustomText
-                style={{
-                  color: colors.primary,
-                  fontSize: notifications?.data?.unSeen > 9 ? 12 : 14,
-                }}>
-                {notificationCount}
-              </CustomText>
-            </View>
-          )}
-          <TouchableOpacity
-            onPress={() => [
-              navigation.navigate('notifications'),
-              ViewNotification(),
-            ]}>
-            <Image
-              source={Images.notificationIcon}
-              resizeMode="contain"
-              style={[styles.iconStyle, { width: width * 0.09, height: width * 0.09, }]}
+              style={{backgroundColor: colors.primary, height: APPBAR_HEIGHT}}
             />
-          </TouchableOpacity>
-        </View>
-
-        {/* </ImageBackground> */}
-
-        <ScrollView
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: width * 0.8 }}
-          style={{
-            marginHorizontal: width * 0.038,
-            marginTop: Platform.OS === 'ios' ? 20 : 10,
-            marginBottom: width * 0.08,
-          }}>
+          )}
 
           <View
-            style={{
-              marginTop: 30,
-              marginBottom: 20
-            }}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{ fontSize: width * 0.037, color: colors.dark }}>
-              {checkTime()}!
-            </CustomText>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{
-                fontSize: width * 0.057,
-                color: colors.dark,
-              }}>
-              Mr. {name}
-            </CustomText>
-          </View>
+            style={[
+              styles.topView,
+              {marginTop: APPBAR_HEIGHT + width * 0.01},
+              // {marginTop:20}
+            ]}>
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Image
+                source={Images.menuIcon}
+                resizeMode="contain"
+                style={[
+                  styles.iconStyle,
+                  {width: width * 0.09, height: width * 0.09, marginLeft: 10},
+                ]}
+              />
+            </TouchableOpacity>
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{ fontSize: width * 0.055 }}>
-              {text.mySociety}
-            </CustomText>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-              <CustomText
-                fontWeight={fontsFamily.regular}
-                style={{ fontSize: width * 0.035, marginRight: 8 }}>
-                {text.viewAll}
-              </CustomText>
-              <Image source={Images.backArrow} style={styles.arrow} />
-            </View>
-          </View>
-
-
-          <View style={{ height: width / 2.5, marginVertical: 18 }}>
-            <FlatList horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={{ flexGrow: 1, }}
-              data={services}
-              renderItem={({ _, i }) => {
-                return (
-                  <SocietyCard />
-                )
-              }} />
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <CustomText
-              fontWeight={fontsFamily.semiBold}
-              style={{ fontSize: width * 0.055 }}>
-              {text.manageSociety}
-            </CustomText>
-            <View style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-              <CustomText
-                fontWeight={fontsFamily.regular}
-                style={{ fontSize: width * 0.035, marginRight: 8 }}>
-                {text.viewAll}
-              </CustomText>
-              <Image source={Images.backArrow} style={styles.arrow} />
-            </View>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'flex-start',
-              gap: width * 0.013,
-            }}>
-            {loader ? (
-              <View style={{ width: width * 1, padding: width * 0.1 }}>
-                <ActivityIndicator size={'large'} color={colors.primary} />
-              </View>
-            ) : services?.length > 0 ? (
-              <>
-                {services?.map(item => (
-                  <TouchableOpacity
-                    key={item.id}
-                    onPress={() =>
-                      navigation.navigate(item.route, { data: { id: item?.id } })
-                    }
-                    style={{
-                      width: width * 0.22,
-                      height: width * 0.26,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      source={{ uri: baseUrl + item.icon }}
-                      resizeMode="contain"
-                      style={{ width: '70%', height: '70%' }}
-                    />
-                    <CustomText style={{ fontSize: width * 0.024, textAlign: 'center' }} fontWeight={fontsFamily.bold}>
-                      {item.name}
-                    </CustomText>
-                  </TouchableOpacity>
-                ))}
-              </>
-            ) : (
+            {notificationCount !== 0 && (
               <View
-                style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text
+                style={{
+                  backgroundColor: colors.white,
+                  paddingHorizontal: 10,
+                  paddingVertical: notifications?.data?.unSeen > 9 ? 7 : 5,
+                  borderRadius: 50,
+                  position: 'absolute',
+                  right: -5,
+                  top: -20,
+                }}>
+                <CustomText
                   style={{
-                    color: colors.black,
-                    fontSize: width * 0.035,
-                    fontFamily: fontsFamily.medium,
+                    color: colors.primary,
+                    fontSize: notifications?.data?.unSeen > 9 ? 12 : 14,
                   }}>
-                  No services found
-                </Text>
+                  {notificationCount}
+                </CustomText>
               </View>
             )}
+            <TouchableOpacity
+              onPress={() => [
+                navigation.navigate('notifications'),
+                ViewNotification(),
+              ]}>
+              <Image
+                source={Images.notificationIcon}
+                resizeMode="contain"
+                style={[
+                  styles.iconStyle,
+                  {width: width * 0.09, height: width * 0.09},
+                ]}
+              />
+            </TouchableOpacity>
           </View>
-        </ScrollView>
 
-      </ImageBackground>
+          {/* </ImageBackground> */}
+
+          <ScrollView
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{flexGrow: 1, paddingBottom: width * 0.8}}
+            style={{
+              marginHorizontal: width * 0.038,
+              marginTop: Platform.OS === 'ios' ? 20 : 10,
+              marginBottom: width * 0.08,
+            }}>
+            <View
+              style={{
+                marginTop: 30,
+                marginBottom: 20,
+              }}>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{fontSize: width * 0.037, color: colors.dark}}>
+                {checkTime()}!
+              </CustomText>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{
+                  fontSize: width * 0.057,
+                  color: colors.dark,
+                }}>
+                Mr. {name}
+              </CustomText>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{fontSize: width * 0.055}}>
+                {text.mySociety}
+              </CustomText>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <CustomText
+                  fontWeight={fontsFamily.regular}
+                  style={{fontSize: width * 0.035, marginRight: 8}}>
+                  {text.viewAll}
+                </CustomText>
+                <Image source={Images.backArrow} style={styles.arrow} />
+              </View>
+            </View>
+
+            <View style={{height: width / 2.5, marginVertical: 18}}>
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{flexGrow: 1}}
+                data={services}
+                renderItem={({_, i}) => {
+                  return <SocietyCard />;
+                }}
+              />
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}>
+              <CustomText
+                fontWeight={fontsFamily.semiBold}
+                style={{fontSize: width * 0.055}}>
+                {text.manageSociety}
+              </CustomText>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <CustomText
+                  fontWeight={fontsFamily.regular}
+                  style={{fontSize: width * 0.035, marginRight: 8}}>
+                  {text.viewAll}
+                </CustomText>
+                <Image source={Images.backArrow} style={styles.arrow} />
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'flex-start',
+                gap: width * 0.013,
+              }}>
+              {loader ? (
+                <View style={{width: width * 1, padding: width * 0.1}}>
+                  <ActivityIndicator size={'large'} color={colors.primary} />
+                </View>
+              ) : services?.length > 0 ? (
+                <>
+                  {services?.map(item => (
+                    <TouchableOpacity
+                      key={item.id}
+                      onPress={() =>
+                        navigation.navigate(item.route, {data: {id: item?.id}})
+                      }
+                      style={{
+                        width: width * 0.22,
+                        height: width * 0.26,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={{uri: baseUrl + item.icon}}
+                        resizeMode="contain"
+                        style={{width: '70%', height: '70%'}}
+                      />
+                      <CustomText
+                        style={{fontSize: width * 0.024, textAlign: 'center'}}
+                        fontWeight={fontsFamily.bold}>
+                        {item.name}
+                      </CustomText>
+                    </TouchableOpacity>
+                  ))}
+                </>
+              ) : (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      color: colors.black,
+                      fontSize: width * 0.035,
+                      fontFamily: fontsFamily.medium,
+                    }}>
+                    No services found
+                  </Text>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </ImageBackground>
+      </DrawerScreenWrapper>
     </View>
-    </DrawerScreenWrapper>
   );
 };
 
 export default AdminHome;
-

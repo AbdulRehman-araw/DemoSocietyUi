@@ -26,15 +26,16 @@ const ListCard = ({ data }) => {
     <TouchableOpacity
       activeOpacity={1}
       style={styles.card1} onPress={() => navigation.navigate(data.path)}>
-      <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 10 }}>
-        <Image source={Images.userIcon} resizeMode="contain" style={{ width: width * 0.04, }} />
-        <View style={{ marginLeft: 20, }}>
+      <View style={{ flexDirection: "row", alignItems: "center",  }}>
+
+        <View style={{ flex:1 }}>
           <CustomText
             fontWeight={fontsFamily.bold}
-            style={{ color: colors.primary, fontSize: width * 0.039 }}>
+            style={{ color: colors.black, fontSize: width * 0.039 }}>
             {data?.title}
           </CustomText>
         </View>
+        <Image source={Images.card_arrow} resizeMode="contain" style={{ width: width * 0.04, }} />
       </View>
     </TouchableOpacity>
   );
@@ -48,9 +49,9 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     alignSelf: 'center',
-    borderWidth: 1.3,
-    borderColor: colors.gray,
-    borderRadius: 8,
+    borderBottomWidth: 1.3,
+    borderColor: colors.primary,
+    // borderRadius: 8,
     width: width * 0.86,
     height: width * 0.15,
     marginTop: 20,

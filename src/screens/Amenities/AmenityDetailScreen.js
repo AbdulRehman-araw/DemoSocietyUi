@@ -226,7 +226,7 @@ const AmenityDetailScreen = ({ navigation, route }) => {
                             <View>
 
                                 <View style={{ marginBottom: 20 }}>
-                                    <CustomText children={'Booking Details'} fontWeight={fontsFamily.bold} style={{ fontSize: 18, color: colors.black }} />
+                                    <CustomText children={'Amenities Details'} fontWeight={fontsFamily.bold} style={{ fontSize: 18, color: colors.black }} />
                                 </View>
                                 <VisitorDetailView label={'Title'} text={updateData?.title} img={Images.userIcon} />
                                 <VisitorDetailView label={'Description'} text={updateData?.details} img={Images.userIcon} />

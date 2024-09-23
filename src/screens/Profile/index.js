@@ -115,7 +115,7 @@ const UserProfile = ({ props, navigation }) => {
             <Image
               source={Images.menuIcon}
               resizeMode="contain"
-              style={[styles.iconStyle, { tintColor: colors.primary }]}
+              style={[styles.iconStyle, ]}
             />
           </TouchableOpacity>
           <CustomText

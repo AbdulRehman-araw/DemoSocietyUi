@@ -73,7 +73,7 @@ const JournalVoucher = ({ navigation }) => {
           onBack={goBack}
           title={"Journal Vouchers"}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => navigation.navigate('createJournalVoucher')}
         />
         <View style={{ paddingHorizontal: width * 0.01, flex: 1, marginTop: 10, paddingBottom: height * 0.15 }}>

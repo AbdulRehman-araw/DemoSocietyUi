@@ -11,6 +11,8 @@ import {
   Platform,
   BackHandler,
   Alert,
+  FlatList,
+  ImageBackground,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {colors} from '../../styles/colors';
@@ -27,6 +29,8 @@ import {useSelector} from 'react-redux';
 import {apiCall} from '../../Services/apiCall';
 import {ActivityIndicator} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
+import FilledTextField from '../../components/TextField/FilledTextField';
+import {useForm} from 'react-hook-form';
 
 const buttonData = [
   {
@@ -49,6 +53,7 @@ const Events = ({navigation, route}) => {
     state => state.userDataReducer.servicePermission,
   );
   const role = useSelector(state => state.userDataReducer.userRole);
+  const {control} = useForm();
 
   const [selectedItem, setSelectedItem] = useState('My Events');
   const [events, setEvents] = useState([]);
@@ -136,67 +141,99 @@ const Events = ({navigation, route}) => {
         barStyle="dark-content"
       />
 
-      <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
-        <Header
-          onBack={goBack}
-          title={'Events'}
-          showRightBtn={
-            permission?.canAdd ? (role === 'User' ? false : true) : false
-          }
-          icon={Images.Addcircle}
-          handleRightBtn={() => navigation.navigate('createEvent')}
-        />
-
-        {role === 'User' && (
-          <SlideButton
-            data={buttonData}
-            selectedItem={selectedItem}
-            handleBtn={type => getEvents(type)}
+      <ImageBackground source={Images.darkBG} style={{flex: 1}}>
+        <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
+          <Header
+            onBack={goBack}
+            title={'Events'}
+            showRightBtn={
+              permission?.canAdd ? (role === 'User' ? false : true) : false
+            }
+            icon={Images.newAdd}
+            handleRightBtn={() => navigation.navigate('createEvent')}
           />
-        )}
 
-        {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
+          <FilledTextField
+            name={'Search'}
+            placeholder=" Search Amenities"
+            type={'default'}
+            control={control}
+            // justChange={e => getFacilityBooking(e)}
+            variant="outlined"
+            showRightIcon={true}
+            rightIconImg={Images.search}
+            rightIconStyle={{flex: 0.4}}
+            containerStyle={{
+              borderRadius: 12,
+              marginTop: width * 0.05,
+              backgroundColor: colors.white,
+              borderWidth: 1,
+            }}
+            isLeftSearch={true}
+          />
+
+          {role === 'User' && (
+            <SlideButton
+              data={buttonData}
+              selectedItem={selectedItem}
+              handleBtn={type => getEvents(type)}
+            />
+          )}
+
+          {/* <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{
           flexGrow: 1,
           paddingBottom: Platform.OS == "ios" ? width * 0.08 : width * 0.18
         }} > */}
 
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
-          }}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }>
-          <View
-            style={{paddingHorizontal: width * 0.01, flex: 1, marginTop: 10}}>
-            {loader ? (
-              <ActivityIndicator size={'small'} color={colors?.primary} />
-            ) : events?.length > 0 ? (
-              events?.map((val, i) => (
-                <ListCon navigation={navigation} data={val} key={i} />
-              ))
-            ) : (
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Text
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingBottom: Platform.OS == 'ios' ? width * 0.08 : width * 0.18,
+            }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            <View
+              style={{paddingHorizontal: width * 0.01, flex: 1, marginTop: 10}}>
+              {loader ? (
+                <ActivityIndicator size={'small'} color={colors?.primary} />
+              ) : events?.length > 0 ? (
+                <FlatList
+                  data={events}
+                  numColumns={2} // Number of columns in the grid
+                  contentContainerStyle={{flexGrow: 1}}
+                  renderItem={({item, index}) => {
+                    return (
+                      <ListCon
+                        navigation={navigation}
+                        data={item}
+                        key={index}
+                      />
+                    );
+                  }}
+                />
+              ) : (
+                <View
                   style={{
-                    color: colors?.black,
-                    fontSize: width * 0.035,
-                    fontFamily: fontsFamily.medium,
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  No Event Found
-                </Text>
-              </View>
-            )}
-          </View>
-        </ScrollView>
-      </View>
+                  <Text
+                    style={{
+                      color: colors?.black,
+                      fontSize: width * 0.035,
+                      fontFamily: fontsFamily.medium,
+                    }}>
+                    No Event Found
+                  </Text>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

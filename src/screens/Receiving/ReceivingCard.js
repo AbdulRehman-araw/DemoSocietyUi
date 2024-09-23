@@ -31,7 +31,7 @@ const ReceivingCard = ({ data }) => {
         shadowOpacity: 0.2,
         shadowOffset: { width: 1, height: 1 },
         shadowColor: "black",
-        overflow: false,
+        overflow: 'hidden',
         width: "95%",
         alignSelf: 'center'
       }]}>

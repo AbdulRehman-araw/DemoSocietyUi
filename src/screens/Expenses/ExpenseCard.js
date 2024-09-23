@@ -20,89 +20,126 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
 
+const VisitorDetailView = ({ img, label, text }) => {
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 8 }}>
+      {/* <Image source={img} style={{ width: 20, height: 20, resizeMode: 'contain', marginRight: 18, }} /> */}
+      <View>
+        <CustomText
+          fontWeight={fontsFamily.regular}
+          style={{ fontSize: 10, color: colors.darkGray, }}>
+          {label}
+        </CustomText>
+        <View style={{ marginVertical: 4 }} />
+        <CustomText
+          fontWeight={fontsFamily.bold}
+          style={{ fontSize: 14, color: colors.dark }}>
+          {text}
+        </CustomText>
+      </View>
+    </View>
+  )
+}
+
+
 const ExpenseCard = ({ data }) => {
 
   const navigation = useNavigation()
 
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={() => navigation.navigate('expenseDetail', { data })}
-      style={styles.viewCard}>
+    // <TouchableOpacity
+    //   activeOpacity={1}
+    //   onPress={() => navigation.navigate('expenseDetail', { data })}
+    //   style={styles.viewCard}>
 
-      <View style={styles.greenCard}>
-        <Image
-          source={Images.visitors}
-          resizeMode="contain"
-          style={{ width: '65%' }}
-        />
+    //   <View style={styles.greenCard}>
+    //     <Image
+    //       source={Images.visitors}
+    //       resizeMode="contain"
+    //       style={{ width: '65%' }}
+    //     />
+    //   </View>
+
+    //   <View style={{ flex: 1, justifyContent: "space-evenly", paddingHorizontal: 10 }}>
+
+    //     <View style={styles.viewText}>
+    //       <CustomText fontWeight={fontsFamily.medium} style={styles.detailText}>
+    //         {data?.expenseName}
+    //       </CustomText>
+    //       {/* <CustomText
+    //         fontWeight={fontsFamily.medium}
+    //         style={styles.subHeading}>
+    //         JD-213
+    //       </CustomText> */}
+    //     </View>
+
+    //     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+    //       <View style={{ width: '55%' }}>
+    //         <CustomText
+    //           fontWeight={fontsFamily.medium}
+    //           style={styles.subHeading}>
+    //           Payment Type
+    //         </CustomText>
+    //         <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
+    //           {data?.typeName}
+    //         </CustomText>
+    //       </View>
+
+    //       <View style={{ width: '44%' }}>
+    //         <CustomText
+    //           fontWeight={fontsFamily.medium}
+    //           style={styles.subHeading}>
+    //           Account
+    //         </CustomText>
+    //         <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
+    //           {data?.accountName}
+    //         </CustomText>
+    //       </View>
+
+    //     </View>
+
+    //     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+
+    //       <View style={{ width: '55%' }}>
+    //         <CustomText
+    //           fontWeight={fontsFamily.medium}
+    //           style={styles.subHeading}>
+    //           Date
+    //         </CustomText>
+    //         <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
+    //           {moment(data?.date).format('DD MMM YYYY')}
+    //         </CustomText>
+    //       </View>
+
+    //       <View style={{ width: '44%' }}>
+    //         <CustomText
+    //           fontWeight={fontsFamily.medium}
+    //           style={styles.subHeading}>
+    //           Amount
+    //         </CustomText>
+    //         <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
+    //           {data?.amount.toLocaleString("en-US")}
+    //         </CustomText>
+    //       </View>
+
+    //     </View>
+
+    //   </View>
+    // </TouchableOpacity>
+    <TouchableOpacity 
+    activeOpacity={1}
+    onPress={() => navigation.navigate('expenseDetail', { data })}
+     style={styles.main}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: colors.primary, justifyContent: 'space-between', padding: 8, paddingHorizontal:20 }}>
+        {/* <Image source={Images.house_building_amenty} style={{ width: 30, height: 30, resizeMode: 'contain', marginHorizontal: 18 }} /> */}
+        <CustomText children={data?.description} fontWeight={fontsFamily.bold} style={{ fontSize: 18, color: colors.white, }} />
+        <CustomText children={moment(data?.addOn).format('DD MMM YYYY')} fontWeight={fontsFamily.bold} style={{ fontSize: 12, color: colors.white, }} />
       </View>
-
-      <View style={{ flex: 1, justifyContent: "space-evenly", paddingHorizontal: 10 }}>
-
-        <View style={styles.viewText}>
-          <CustomText fontWeight={fontsFamily.medium} style={styles.detailText}>
-            {data?.expenseName}
-          </CustomText>
-          {/* <CustomText
-            fontWeight={fontsFamily.medium}
-            style={styles.subHeading}>
-            JD-213
-          </CustomText> */}
-        </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-          <View style={{ width: '55%' }}>
-            <CustomText
-              fontWeight={fontsFamily.medium}
-              style={styles.subHeading}>
-              Payment Type
-            </CustomText>
-            <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-              {data?.typeName}
-            </CustomText>
-          </View>
-
-          <View style={{ width: '44%' }}>
-            <CustomText
-              fontWeight={fontsFamily.medium}
-              style={styles.subHeading}>
-              Account
-            </CustomText>
-            <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-              {data?.accountName}
-            </CustomText>
-          </View>
-
-        </View>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-
-          <View style={{ width: '55%' }}>
-            <CustomText
-              fontWeight={fontsFamily.medium}
-              style={styles.subHeading}>
-              Date
-            </CustomText>
-            <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-              {moment(data?.date).format('DD MMM YYYY')}
-            </CustomText>
-          </View>
-
-          <View style={{ width: '44%' }}>
-            <CustomText
-              fontWeight={fontsFamily.medium}
-              style={styles.subHeading}>
-              Amount
-            </CustomText>
-            <CustomText fontWeight={fontsFamily.semiBold} style={styles.detailText}>
-              {data?.amount.toLocaleString("en-US")}
-            </CustomText>
-          </View>
-
-        </View>
-
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-around', backgroundColor: colors.white, paddingVertical: 18 }}>
+          <VisitorDetailView label={'Payment Type'} text={data?.typeName} img={Images.newMarker} />
+          <VisitorDetailView label={'Total Amount'} text={data?.amount} img={Images.newUser} />
+          <VisitorDetailView label={'Amount Paid'} text={data?.amount} img={Images.newUsers} />
       </View>
     </TouchableOpacity>
   );
@@ -149,5 +186,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     minHeight: width * 0.30,
     elevation: 4,
-  }
+  },
+
+        //new style
+        main: {
+          // flex: 1, 
+          borderRadius: 18,
+          overflow: 'hidden',
+          marginBottom: 32,
+          elevation:6,
+        }
 });

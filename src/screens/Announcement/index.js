@@ -12,47 +12,48 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import DatePicker from 'react-native-date-picker';
-import { colors } from '../../styles/colors';
+import {colors} from '../../styles/colors';
 
 import CustomText from '../../components/CustomText';
 import Header from '../../components/Header/Header';
 import DateTimePicker from '../../components/Modal/DateTimePicker';
 import ComplainTextField from '../../components/TextField/complainTextField';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { text } from '../../res/strings';
-import { fontsFamily } from '../../assets/Fonts';
-import { styles } from './styles/styles';
-import { Images } from '../../assets/Images';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {text} from '../../res/strings';
+import {fontsFamily} from '../../assets/Fonts';
+import {styles} from './styles/styles';
+import {Images} from '../../assets/Images';
 import FilledTextField from '../../components/TextField/FilledTextField';
-import { useForm } from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import PrimaryButton from '../../components/Button/PrimaryButton';
 import {
   AnnouncementBox,
   AnnouncementBoxLight,
 } from '../../components/AnnouncementBox';
-import { FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
-import { apiCall } from '../../Services/apiCall';
-import { ActivityIndicator } from 'react-native';
-import { Modal } from 'react-native';
-import { RefreshControl } from 'react-native';
+import {FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
+import {apiCall} from '../../Services/apiCall';
+import {ActivityIndicator} from 'react-native';
+import {Modal} from 'react-native';
+import {RefreshControl} from 'react-native';
 import AlertModal from '../../components/Modal/AlertModal';
-import { useIsFocused } from '@react-navigation/native';
+import {useIsFocused} from '@react-navigation/native';
+import LinearGradientPrimaryButton from '../../components/Button/LinearGradientPrimaryButton';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
-const Announcement = ({ navigation, route }) => {
-  const { id } = route?.params?.data ? route?.params?.data : route?.params;
-  const { control, handleSubmit } = useForm();
+const Announcement = ({navigation, route}) => {
+  const {id} = route?.params?.data ? route?.params?.data : route?.params;
+  const {control, handleSubmit} = useForm();
   const Details = useSelector(
     state => state.userDataReducer.userAccountDetails,
   );
   const servicePermission = useSelector(
     state => state.userDataReducer.servicePermission,
   );
-  const { role } = useSelector(state => state.userDataReducer.userData);
+  const {role} = useSelector(state => state.userDataReducer.userData);
   const [announcementData, setAnnouncementData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -72,7 +73,7 @@ const Announcement = ({ navigation, route }) => {
     setLoader(true);
     try {
       const search = searchKey ? searchKey : '';
-      const { data } = await apiCall.getAnnouncement(Details?.accountID, search);
+      const {data} = await apiCall.getAnnouncement(Details?.accountID, search);
       console.log('🚀 ~ file: index.js:76 ~ getAnnouncement ~ data:', data);
       setAnnouncementData(data);
     } catch (error) {
@@ -154,16 +155,17 @@ const Announcement = ({ navigation, route }) => {
         backgroundColor={colors.white}
         barStyle="dark-content"
       />
-      <View style={{
-        marginLeft: Platform.OS == "ios" ? 20 : 0
-      }}>
+      <View
+        style={{
+          marginLeft: Platform.OS == 'ios' ? 20 : 0,
+        }}>
         <Header
           onBack={goBack}
           title={'Announcement'}
           showRightBtn={
             permission?.canAdd ? (role == 'User' ? false : true) : false
           }
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() => setShowModal(true)}
         />
       </View>
@@ -171,11 +173,12 @@ const Announcement = ({ navigation, route }) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: height * 0.15 }}
+        contentContainerStyle={{flexGrow: 1, paddingBottom: height * 0.15}}
         showsVerticalScrollIndicator={false}>
-        <ComplainTextField
+        <FilledTextField
           name={'Search'}
           placeholder=" Search"
+          variant={'outlined'}
           type={'default'}
           control={control}
           justChange={e => {
@@ -186,6 +189,12 @@ const Announcement = ({ navigation, route }) => {
           // rules={{
           //     required:"User name is required"
           // }}
+          containerStyle={{
+            borderRadius: 12,
+            marginTop: width * 0.05,
+            backgroundColor: colors.white,
+            borderWidth: 1,
+          }}
           img={Images.search}
         />
         {/* <Announcement card /> */}
@@ -201,10 +210,11 @@ const Announcement = ({ navigation, route }) => {
         ) : announcementData?.length > 0 ? (
           announcementData?.map((item, index) => (
             <TouchableOpacity
+              activeOpacity={1}
               key={item.id}
               onPress={() =>
                 navigation.navigate('announcementDetail', {
-                  data: { detail: item, permission: permission },
+                  data: {detail: item, permission: permission},
                 })
               }>
               <AnnouncementBoxLight data={item} key={index} />
@@ -232,10 +242,10 @@ const Announcement = ({ navigation, route }) => {
         animationType="fade"
         visible={showModal}
         onRequestClose={() => setShowModal(false)}>
-        <View style={[styles.root, { marginTop: Platform.OS == "ios" ? 50 : 0 }]}>
+        <View style={[styles.root, {marginTop: Platform.OS == 'ios' ? 50 : 0}]}>
           <Header
             onBack={() => setShowModal(false)}
-            title={'New Announcement'}
+            title={'Add New'}
             showRightBtn={false}
             icon={Images.Addcircle}
           />
@@ -247,15 +257,16 @@ const Announcement = ({ navigation, route }) => {
             }}>
             <View style={styles.upperCon}>
               <View style={styles.textMainCon}>
-                <CustomText
+                {/* <CustomText
                   fontWeight={fontsFamily.semiBold}
                   style={styles.textTitle}>
                   Subject
-                </CustomText>
+                </CustomText> */}
                 <TextInput
-                  style={styles.textInput}
-                  placeholder={'Enter Subject'}
-                  placeholderTextColor={colors.gray}
+                  style={{...styles.textInput}}
+                  placeholder={'Subject'}
+                  placeholderTextColor={colors.darkGray}
+                  multiline={true}
                   onChangeText={e => {
                     setTitle(e);
                   }}
@@ -274,15 +285,18 @@ const Announcement = ({ navigation, route }) => {
               ) : null}
 
               <View style={styles.textMainCon}>
-                <CustomText
+                {/* <CustomText
                   fontWeight={fontsFamily.semiBold}
                   style={styles.textTitle}>
                   Description
-                </CustomText>
+                </CustomText> */}
                 <TextInput
-                  style={[styles.textInput, { textAlignVertical: 'top', height: 40 }]}
-                  placeholder={'Enter Description'}
-                  placeholderTextColor={colors.gray}
+                  style={[
+                    styles.textInput,
+                    {textAlignVertical: 'top', minHeight: 100},
+                  ]}
+                  placeholder={'Description'}
+                  placeholderTextColor={colors.darkGray}
                   multiline
                   numberOfLines={5}
                   maxLength={100}
@@ -309,14 +323,14 @@ const Announcement = ({ navigation, route }) => {
                 </CustomText>
               </View>
             </View>
-            <PrimaryButton
+            <LinearGradientPrimaryButton
               onPress={submitAnnouncement}
               loader={loaderSubmit}
-              title={'Publish'}
+              title={'Send Now'}
               customStyle={{
-                width: '40%',
+                width: '100%',
                 alignSelf: 'center',
-                paddingVertical: width * 0.03,
+                paddingVertical: width * 0.01,
                 marginBottom: width * 0.1,
               }}
             />

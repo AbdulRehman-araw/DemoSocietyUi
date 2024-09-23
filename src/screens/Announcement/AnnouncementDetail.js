@@ -86,11 +86,7 @@ const AnnouncementDetail = ({navigation, route}) => {
       />
 
       <View style={{paddingHorizontal: width * 0.032, flex: 1}}>
-        <Header
-          onBack={goBack}
-          title={'Announcement Detail'}
-          showRightBtn={false}
-        />
+        <Header onBack={goBack} title={'Detail'} showRightBtn={false} />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -103,22 +99,35 @@ const AnnouncementDetail = ({navigation, route}) => {
               <View>
                 <CustomText
                   fontWeight={fontsFamily.semiBold}
-                  style={styles.username}>
-                  Subject
+                  style={{
+                    ...styles.username,
+                    fontSize: 20,
+                    color: colors.black,
+                    marginVertical: 10,
+                  }}>
+                  Announcement Details
                 </CustomText>
 
-                <CustomText
-                  fontWeight={fontsFamily.semiBold}
-                  style={styles.name}>
-                  {DetailData?.subject}
-                </CustomText>
+                <View style={{marginVertical: 10}}>
+                  <CustomText
+                    fontWeight={fontsFamily.regular}
+                    style={styles.username}>
+                    Subject
+                  </CustomText>
+
+                  <CustomText
+                    fontWeight={fontsFamily.semiBold}
+                    style={styles.name}>
+                    {DetailData?.subject}
+                  </CustomText>
+                </View>
               </View>
             </View>
 
             <View style={styles.viewname}>
               <View>
                 <CustomText
-                  fontWeight={fontsFamily.semiBold}
+                  fontWeight={fontsFamily.regular}
                   style={styles.username}>
                   Description
                 </CustomText>
@@ -144,16 +153,17 @@ const AnnouncementDetail = ({navigation, route}) => {
                   onPress={() => AlertFunction()}
                   activeOpacity={1}
                   style={{
-                    width: width * 0.13,
-                    height: width * 0.13,
+                    flex: 1,
+                    // width: width * 0.13,
+                    // height: width * 0.13,
                     marginRight: width * 0.02,
                     backgroundColor: colors.danger,
-                    borderRadius: 10,
-                    padding: width * 0.02,
+                    borderRadius: 26,
+                    padding: width * 0.03,
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <Image
+                  {/* <Image
                     resizeMode="contain"
                     style={{
                       tintColor: colors.white,
@@ -161,28 +171,44 @@ const AnnouncementDetail = ({navigation, route}) => {
                       height: width * 0.06,
                     }}
                     source={Images.icondelete}
+                  /> */}
+                  <CustomText
+                    children={'Delete'}
+                    fontWeight={fontsFamily.bold}
+                    style={{color: colors.white}}
                   />
                 </TouchableOpacity>
               )}
 
-              {/* {Permission?.canEdit &&
-                <TouchableOpacity onPress={() => navigation.navigate('updateAnnouncement', {DetailData})} activeOpacity={1} style={{
-                  width: width * 0.13,
-                  height: width * 0.13,
-                  marginRight: width * 0.02,
-                  backgroundColor: colors.primary,
-                  borderRadius: 10,
-                  padding: width * 0.02,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
+              {/* {Permission?.canEdit && (
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('updateAnnouncement', {DetailData})
+                  }
+                  activeOpacity={1}
+                  style={{
+                    // width: width * 0.13,
+                    // height: width * 0.13,
+                    flex: 1,
+                    marginRight: width * 0.02,
+                    backgroundColor: colors.success,
+                    borderRadius: 26,
+                    padding: width * 0.03,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
                   <Image
                     resizeMode='contain'
                     style={{ tintColor: colors.white, width: width * 0.06, height: width * 0.06 }}
                     source={Images.editIcon}
                   />
+                  <CustomText
+                    children={'Resend'}
+                    fontWeight={fontsFamily.bold}
+                    style={{color: colors.white}}
+                  />
                 </TouchableOpacity>
-              } */}
+              )} */}
             </View>
 
             <WarningModal

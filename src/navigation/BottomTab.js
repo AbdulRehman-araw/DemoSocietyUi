@@ -1,5 +1,5 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import MyTabBar from './BottomItem';
 
@@ -42,9 +42,9 @@ import UserProfile from '../screens/Profile';
 import EPolling from '../screens/E-Polling';
 import EventDetail from '../screens/EventDetail';
 import AdminHome from '../screens/AdminHome';
-import { Fragment } from 'react';
+import {Fragment} from 'react';
 import Community from '../screens/Community';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import AdminFacilityBooking from '../screens/AdminFacilityBooking';
 import FacilityBookingDetail from '../screens/AdminFacilityBooking/FacilityBookingDetail';
 import CreateEvent from '../screens/Events/createEvent';
@@ -139,6 +139,9 @@ import BankStatement from '../screens/BankStatement';
 import ResidentHistory from '../screens/residentHistory/index.js';
 import TrialBalance from '../screens/TrialBalance.js';
 import AmenityDetailScreen from '../screens/Amenities/AmenityDetailScreen.js';
+import {color} from 'react-native-reanimated';
+import {colors} from '../styles/colors.js';
+import DrawerScreenWrapper from '../components/DrawerScreenWrapper.js';
 
 const Tab = createBottomTabNavigator();
 
@@ -310,7 +313,10 @@ const HomeStackScreen = () => {
       <Stack.Screen name="createAmenity" component={CreateAmenity} />
       <Stack.Screen name="updateAmenity" component={UpdateAmenity} />
       <Stack.Screen name="amenityDetail" component={AmenityDetail} />
-      <Stack.Screen name="amenityDetailScreen" component={AmenityDetailScreen} />
+      <Stack.Screen
+        name="amenityDetailScreen"
+        component={AmenityDetailScreen}
+      />
       <Stack.Screen name="announcementDetail" component={AnnouncementDetail} />
       <Stack.Screen name="serviceContracts" component={ServiceContract} />
       <Stack.Screen name="cashStatements" component={CashStatement} />
@@ -361,6 +367,7 @@ export function BottomTab() {
   const role = useSelector(state => state.userDataReducer.userRole);
 
   return (
+    <DrawerScreenWrapper>
     <Tab.Navigator
       tabBar={props => <MyTabBar {...props} />}
       initialRouteName={'userHome'}
@@ -383,5 +390,6 @@ export function BottomTab() {
       <Tab.Screen name="discussion" component={Discussions} />
       <Tab.Screen name="profile" component={UserProfile} />
     </Tab.Navigator>
+    </DrawerScreenWrapper>
   );
 }

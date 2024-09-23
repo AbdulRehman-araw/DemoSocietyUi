@@ -27,7 +27,7 @@ const ListCard = ({ data }) => {
       activeOpacity={1}
       style={styles.card1} onPress={() => navigation.navigate(data.path)}>
       <View style={{ flexDirection: "row", alignItems: "center", marginLeft: 10 }}>
-        <Image source={Images.userIcon} resizeMode="contain" style={{ width: width * 0.04, }} />
+        <Image source={Images.userIcon} resizeMode="contain" style={{ width: width * 0.04,tintColor:colors.primary }} />
         <View style={{ marginLeft: 20, }}>
           <CustomText
             fontWeight={fontsFamily.bold}

@@ -75,7 +75,7 @@ const BankReceivingVoucher = ({navigation}) => {
           onBack={goBack}
           title={'Bank Receiving Vouchers'}
           showRightBtn={true}
-          icon={Images.Addcircle}
+          icon={Images.newAdd}
           handleRightBtn={() =>
             navigation.navigate('createBankReceivingVoucher')
           }

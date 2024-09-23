@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     elevation: 24,
     borderTopLeftRadius: 21,
     borderTopRightRadius: 21,
+    borderBottomLeftRadius:21,
     backgroundColor: '#fff',
     position: 'absolute',
     bottom: 0,

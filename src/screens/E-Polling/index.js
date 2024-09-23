@@ -127,7 +127,7 @@ const EPolling = ({navigation, route}) => {
               showRightBtn={
                 permission?.canAdd ? (role == 'User' ? false : true) : false
               }
-              icon={Images.Addcircle}
+              icon={Images.newAdd}
               handleRightBtn={() => setshowAddModal(true)}
             />
 
@@ -141,7 +141,12 @@ const EPolling = ({navigation, route}) => {
               showRightIcon={true}
               rightIconImg={Images.search}
               rightIconStyle={{flex: 0.4}}
-              containerStyle={{borderRadius: 12, marginBottom: 10}}
+              containerStyle={{
+                borderRadius: 12,
+                marginTop: width * 0.05,
+                backgroundColor: colors.white,
+                borderWidth: 1,
+              }}
               // rules={{
               //     required:"User name is required"
               // }}
@@ -162,15 +167,17 @@ const EPolling = ({navigation, route}) => {
             {polling?.length > 0
               ? polling?.slice(0, numToShow)?.map((item, index) => {
                   return (
-                    <DetailPollingCard
-                      mainstate={polling}
-                      setmainstate={setPolling}
-                      data={item}
-                      key={index}
-                      getData={getPollingHandler}
-                      index={index}
-                      serviceId={serviceId}
-                    />
+                    <View style={{marginHorizontal: 10}}>
+                      <DetailPollingCard
+                        mainstate={polling}
+                        setmainstate={setPolling}
+                        data={item}
+                        key={index}
+                        getData={getPollingHandler}
+                        index={index}
+                        serviceId={serviceId}
+                      />
+                    </View>
                   );
                 })
               : !refreshing && (
